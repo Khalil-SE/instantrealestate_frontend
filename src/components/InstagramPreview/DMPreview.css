@@ -1,0 +1,29 @@
+.dm-preview-content {
+  padding: 20px;
+  background-color: #f4f4f8;
+  min-height: 400px;
+  text-align: left;
+  font-family: sans-serif;
+}
+
+.dm-preview-image {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.dm-preview-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.dm-preview-text {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.dm-preview-buttons .btn {
+  font-size: 0.8rem;
+}
