@@ -1,3 +1,4 @@
+Following Read me is from the UI template for just startUp
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
