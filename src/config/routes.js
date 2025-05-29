@@ -28,7 +28,8 @@ export const ROUTES = {
         INSTABOT: {
           INSTABOTS: '/user/instabot',
           CREATE_INSTABOT: '/user/instabot/create',
-          EDIT_INSTABOT: (id) => `/user/instabot/edit/edit/${id}`,
+          EDIT_INSTABOT: '/user/instabot/edit/:id', // route pattern
+          GET_EDIT_INSTABOT_URL: (id) => `/user/instabot/edit/${id}`, // for navigation
           INSTABOT_DETAILS: '/user/instabot/details/:id',
         },
         PRIVACY_POLICY: '/user/privacy-policy',

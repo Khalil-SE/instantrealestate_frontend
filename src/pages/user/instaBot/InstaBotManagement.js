@@ -174,7 +174,7 @@ useEffect(() => {
                             <button
                               onClick={() => {
                                 // setModalType("edit");
-                                navigate( ROUTES.USER.INSTABOT.EDIT_INSTABOT( bot.id));
+                                navigate( ROUTES.USER.INSTABOT.GET_EDIT_INSTABOT_URL( bot.id));
                                 // setSelectedBot(bot);
                               }}
                               className="btn btn-sm btn-link text-body"

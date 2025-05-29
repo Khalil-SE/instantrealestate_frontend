@@ -67,6 +67,7 @@ const App = () => {
           {/* <Route path= {ROUTES.INDEX} element={<SignIn />} /> */}
 
           <Route
+            
             path={ROUTES.AUTHENTICATION.SIGN_IN}
             element={
               <PublicRoute restricted={true}>
@@ -156,7 +157,7 @@ const App = () => {
                 element={<CreateEditInstaBot />}
                 />
                 <Route
-                path={ROUTES.USER.INSTABOT.EDIT_INSTABOT(":id")}
+                path={ROUTES.USER.INSTABOT.EDIT_INSTABOT}
                 element={<CreateEditInstaBot />}
                 />
 
