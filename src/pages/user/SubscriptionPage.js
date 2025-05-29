@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Container,
   Row,
@@ -33,33 +33,62 @@ function SubscriptionPage() {
   const [history, setHistory] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+
+  const loadData = useCallback(async () => {
     if (!user?.email_verified) return;
 
-    const loadData = async () => {
-      try {
-        if (!subscription) {
-          const subData = await fetchCurrentSubscription();
-          setSubscription(subData);
-          toast.success("Subscription data loaded successfully.");
-        }
-
-        const plansData = await fetchPlans();
-        setPlans(plansData);
-
-        const historyData = await fetchSubscriptionHistory();
-        setHistory(historyData);
-      } catch (err) {
-        console.error("Error loading subscription data:", err);
-        setError("Failed to load subscription information.");
-        toast.error("Failed to load subscription data.");
-      } finally {
-        setLoading(false);
+    try {
+      if (!subscription) {
+        const subData = await fetchCurrentSubscription();
+        setSubscription(subData);
+        toast.success("Subscription data loaded successfully.");
       }
-    };
 
+      const plansData = await fetchPlans();
+      setPlans(plansData);
+
+      const historyData = await fetchSubscriptionHistory();
+      setHistory(historyData);
+    } catch (err) {
+      console.error("Error loading subscription data:", err);
+      setError("Failed to load subscription information.");
+      toast.error("Failed to load subscription data.");
+    } finally {
+      setLoading(false);
+    }
+  }, [user?.email_verified, subscription, setSubscription]);
+
+  useEffect(() => {
     loadData();
-  }, [user?.email_verified]);
+  }, [loadData]);
+
+  // useEffect(() => {
+  //   if (!user?.email_verified) return;
+
+  //   const loadData = async () => {
+  //     try {
+  //       if (!subscription) {
+  //         const subData = await fetchCurrentSubscription();
+  //         setSubscription(subData);
+  //         toast.success("Subscription data loaded successfully.");
+  //       }
+
+  //       const plansData = await fetchPlans();
+  //       setPlans(plansData);
+
+  //       const historyData = await fetchSubscriptionHistory();
+  //       setHistory(historyData);
+  //     } catch (err) {
+  //       console.error("Error loading subscription data:", err);
+  //       setError("Failed to load subscription information.");
+  //       toast.error("Failed to load subscription data.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   loadData();
+  // }, [user?.email_verified]);
 
   const handleSubscribe = async (planId) => {
     setSubscribing(true);

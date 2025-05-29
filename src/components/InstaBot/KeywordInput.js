@@ -13,7 +13,7 @@ const KeywordInput = ({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (instaBotObj?.keyword?.text != value) {
+    if (instaBotObj?.keyword?.text !== value) {
       const delayDebounce = setTimeout(() => {
         if (value?.trim()) {
           setLoading(true);
@@ -32,7 +32,7 @@ const KeywordInput = ({
 
       return () => clearTimeout(delayDebounce);
     }
-  }, [value]);
+  }, [value, instaBotObj?.keyword?.text]);
 
   return (
     <Form.Group className="mb-4">

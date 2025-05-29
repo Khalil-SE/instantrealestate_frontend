@@ -51,7 +51,7 @@ const SignInForm = () => {
       
     } catch (err) {
       console.error("Login Error:", err);
-      if (err.response?.data?.non_field_errors == 'Please verify your email to login.') {
+      if (err.response?.data?.non_field_errors === 'Please verify your email to login.') {
         
         navigate(ROUTES.AUTHENTICATION.CONFIRM_EMAIL, { state: { email } });
         return;

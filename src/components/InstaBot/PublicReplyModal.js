@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Spinner } from "react-bootstrap";
+import { Modal, Button, Spinner } from "react-bootstrap";
 import EmojiTextInput from "./EmojiTextInput";
 
 const PublicReplyModal = ({

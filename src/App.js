@@ -54,7 +54,7 @@ const App = () => {
     // Hydrate auth state from localStorage on app load
     // console.log("Hydrating auth state from localStorage...");
     hydrateAuth();
-  }, []);
+  }, [hydrateAuth]);
 
   return (
     <>
@@ -133,8 +133,8 @@ const App = () => {
             <Route
               index
               path={ROUTES.USER.DASHBOARD_INDEX}
-              // element={<UserDashboard />}
-              element={<CreateEditInstaBot />}
+               element={<UserDashboard />}
+              
               
             />
 

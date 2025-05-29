@@ -142,7 +142,7 @@
 // export default CreateInstaBot;
 
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import InstaBotCustomForm from "../../../components/InstaBot/InstaBotCustomForm";
 import DMMessageScreen from "../../../components/InstagramPreview/DMMessageScreen";
@@ -176,68 +176,118 @@ const CreateEditInstaBot = () => {
 
   const isEditMode = Boolean(instabotId);
 
-    useEffect(() => {
-    const loadData = async () => {
-      try {
-        // await fetchTemplates(); // Fetches templates once
-        if (isEditMode && instabotId) {
-          await fetchBotData(); // Fetches InstaBot data if in edit mode
-        }
-      } catch (error) {
-        console.error("Failed to load data", error);
-      }
-    };
+  //   useEffect(() => {
+  //   const loadData = async () => {
+  //     try {
+  //       // await fetchTemplates(); // Fetches templates once
+  //       if (isEditMode && instabotId) {
+  //         await fetchBotData(); // Fetches InstaBot data if in edit mode
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to load data", error);
+  //     }
+  //   };
   
-    loadData();
-  }, [instabotId]); // Runs only when instabotId changes (or once if null)
+  //   loadData();
+  // }, [instabotId]); // Runs only when instabotId changes (or once if null)
+
+   const fetchBotData = useCallback(async () => {
+  try {
+    const data = await getInstaBotById(instabotId);
+    console.log(data);
+
+    setFormData({
+      keyword: data.keyword?.text || "",
+      message_type: data.message_type,
+      image: null,
+      title: data.title,
+      message: data.message,
+      ai_post_description: data.ai_post_description,
+      public_reply_template_id: data.public_reply_template?.id || "",
+      status: data.status || "active",
+    });
+
+    let buttonArray = [];
+    if (data.button1_text !== "") {
+      buttonArray.push({ text: data.button1_text, url: data.button1_url });
+    }
+    if (data.button2_text !== "") {
+      buttonArray.push({ text: data.button2_text, url: data.button2_url });
+    }
+    if (data.button3_text !== "") {
+      buttonArray.push({ text: data.button3_text, url: data.button3_url });
+    }
+
+    setButtons(buttonArray);
+    setEmails(data.recipients || []);
+    setCurrentInstaBot(data);
+  } catch (err) {
+    console.error("Failed to fetch bot data", err);
+  }
+}, [instabotId]); // Make sure this depends only on what it uses
 
 
-    const fetchBotData = async () => {
-      try {
-        const data = await getInstaBotById(instabotId);
-        console.log(data);
-        
-        setFormData({
-          keyword: data.keyword?.text || "",
-          message_type: data.message_type,
-          image: null,
-          title: data.title,
-          message: data.message,
-          ai_post_description: data.ai_post_description,
-          // public_reply_template_id: data.public_reply_template_id || "",
-          public_reply_template_id: data.public_reply_template.id || "",
-          status: data.status || "active",
-        });
-        let buttonArray = [];
-        if (data.button1_text !== "") {
-          buttonArray = [...buttonArray,
-            { text: data.button1_text || "", url: data.button1_url || "" }
-          ];
-        }
-        if (data.button2_text !== "") {
-          buttonArray = [...buttonArray,
-            { text: data.button2_text || "", url: data.button2_url || "" }
-          ];
-        }
-        if (data.button3_text !== "") {
-          buttonArray = [...buttonArray,
-            { text: data.button3_text || "", url: data.button3_url || "" }
-          ];
-        }
-        setButtons(buttonArray);
-        // setButtons([
-        //   { text: data.button1_text || "", url: data.button1_url || "" },
-        //   { text: data.button2_text || "", url: data.button2_url || "" },
-        //   { text: data.button3_text || "", url: data.button3_url || "" },
-        // ]);
-        setEmails(data.recipients || []);
-
-        setCurrentInstaBot(data);
-
-      } catch (err) {
-        console.error("Failed to fetch bot data", err);
+  useEffect(() => {
+  const loadData = async () => {
+    try {
+      if (isEditMode && instabotId) {
+        await fetchBotData();
       }
-    };
+    } catch (error) {
+      console.error("Failed to load data", error);
+    }
+  };
+
+  loadData();
+}, [isEditMode, instabotId, fetchBotData]); //  Clean and complete
+
+ 
+    // const fetchBotData = async () => {
+    //   try {
+    //     const data = await getInstaBotById(instabotId);
+    //     console.log(data);
+        
+    //     setFormData({
+    //       keyword: data.keyword?.text || "",
+    //       message_type: data.message_type,
+    //       image: null,
+    //       title: data.title,
+    //       message: data.message,
+    //       ai_post_description: data.ai_post_description,
+    //       // public_reply_template_id: data.public_reply_template_id || "",
+    //       public_reply_template_id: data.public_reply_template.id || "",
+    //       status: data.status || "active",
+    //     });
+    //     let buttonArray = [];
+    //     if (data.button1_text !== "") {
+    //       buttonArray = [...buttonArray,
+    //         { text: data.button1_text || "", url: data.button1_url || "" }
+    //       ];
+    //     }
+    //     if (data.button2_text !== "") {
+    //       buttonArray = [...buttonArray,
+    //         { text: data.button2_text || "", url: data.button2_url || "" }
+    //       ];
+    //     }
+    //     if (data.button3_text !== "") {
+    //       buttonArray = [...buttonArray,
+    //         { text: data.button3_text || "", url: data.button3_url || "" }
+    //       ];
+    //     }
+    //     setButtons(buttonArray);
+    //     // setButtons([
+    //     //   { text: data.button1_text || "", url: data.button1_url || "" },
+    //     //   { text: data.button2_text || "", url: data.button2_url || "" },
+    //     //   { text: data.button3_text || "", url: data.button3_url || "" },
+    //     // ]);
+    //     setEmails(data.recipients || []);
+
+    //     setCurrentInstaBot(data);
+
+    //   } catch (err) {
+    //     console.error("Failed to fetch bot data", err);
+    //   }
+    // };
 
 
 

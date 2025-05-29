@@ -3,7 +3,7 @@ import React from "react";
 import useAuth from "../../store/useAuth";
 import { Button } from "react-bootstrap";
 
-import { getLoftyRedirectUrl } from "../../services/loftyService";
+// import { getLoftyRedirectUrl } from "../../services/loftyService";
 
 const ConnectLoftyButton = () => {
   const user = useAuth((state) => state.user);

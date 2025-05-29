@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import EmojiTextInput from "./EmojiTextInput";
 

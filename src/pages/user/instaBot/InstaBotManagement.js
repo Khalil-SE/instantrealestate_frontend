@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Table, Form, Spinner } from "react-bootstrap";
 import { getAllInstaBots, deleteInstaBot } from "../../../services/instabotService";
@@ -23,25 +23,44 @@ const InstaBotManagement = () => {
   const [botToDelete, setBotToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
-  const fetchBots = async () => {
-    setLoading(true);
-    try {
-      const data = await getAllInstaBots({
-        page: currentPage,
-        search: searchQuery,
-      });
-      setBots(data.results);
-      setTotalPages(Math.ceil(data.count / 10));
-    } catch (error) {
-      console.error("Error fetching bots:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const fetchBots = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const data = await getAllInstaBots({
+  //       page: currentPage,
+  //       search: searchQuery,
+  //     });
+  //     setBots(data.results);
+  //     setTotalPages(Math.ceil(data.count / 10));
+  //   } catch (error) {
+  //     console.error("Error fetching bots:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchBots();
-  }, [currentPage, searchQuery]);
+  // useEffect(() => {
+  //   fetchBots();
+  // }, [currentPage, searchQuery]);
+  const fetchBots = useCallback(async () => {
+  setLoading(true);
+  try {
+    const data = await getAllInstaBots({
+      page: currentPage,
+      search: searchQuery,
+    });
+    setBots(data.results);
+    setTotalPages(Math.ceil(data.count / 10));
+  } catch (error) {
+    console.error("Error fetching bots:", error);
+  } finally {
+    setLoading(false);
+  }
+}, [currentPage, searchQuery]); // Dependencies that affect the fetch
+
+useEffect(() => {
+  fetchBots();
+}, [fetchBots]); // Clean and valid now
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);

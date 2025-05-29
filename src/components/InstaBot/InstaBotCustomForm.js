@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {  useNavigate } from "react-router-dom";
 import { Form, Button, Col, Container } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -13,7 +13,7 @@ import ConfirmModal from "../Modal/ConfirmModal";
 import {
   createInstaBot,
   updateInstaBot,
-  getInstaBotById,
+  
   fetchPublicReplyTemplates,
   deletePublicReplyTemplate,
   updatePublicReplyTemplate,
@@ -84,6 +84,9 @@ const InstaBotCustomForm = ({
   // Fetch templates on mount
   useEffect(() => {
     fetchTemplates();
+  }, []);
+  useEffect(() => {
+    
     if(!isEditMode){
       setFormData({
         keyword: "",
@@ -99,7 +102,7 @@ const InstaBotCustomForm = ({
       setEmails([]);
       setEmailInput("");
     }
-  },[])
+  },[isEditMode, setFormData, setButtons, setEmails, setEmailInput]);
 
   const fetchTemplates = async () => {
     try {

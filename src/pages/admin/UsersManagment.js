@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Card, Table, Form, Spinner } from "react-bootstrap";
 import { getAllUsers, deleteUser } from "../../services/userService";
 import ConfirmModal from "../../components/Modal/ConfirmModal";
@@ -16,7 +16,10 @@ const UsersManagment = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
-  const fetchUsers = async () => {
+
+
+  // Safe fetchUsers with useCallback
+  const fetchUsers = useCallback(async () => {
     setLoading(true);
     try {
       const data = await getAllUsers({
@@ -30,11 +33,31 @@ const UsersManagment = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, searchQuery]);
 
+  // useEffect depends on fetchUsers (safe now)
   useEffect(() => {
     fetchUsers();
-  }, [currentPage, searchQuery]);
+  }, [fetchUsers]);
+  // const fetchUsers = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const data = await getAllUsers({
+  //       page: currentPage,
+  //       search: searchQuery,
+  //     });
+  //     setUsers(data.results);
+  //     setTotalPages(Math.ceil(data.count / 10));
+  //   } catch (error) {
+  //     console.error("Error fetching users:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchUsers();
+  // }, [currentPage, searchQuery]);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);

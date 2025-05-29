@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Accordion } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 
@@ -11,13 +11,14 @@ const AdminLeftSidebar = ({ toggleActive }) => {
   const pathname = location.pathname; // Extract `pathname` from location
 
   // Enable the dark sidebar exclusively for the /dashboard/beauty-salon/ page URL.
-  const [isDark, setIsDark] = useState(false);
+  // const [isDark, setIsDark] = useState(false);
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
   return (
     <>
-      <div className={`sidebar-area ${isDark ? "dark" : ""}`}>
+      {/* <div className={`sidebar-area ${isDark ? "dark" : ""}`}> */}
+      <div className={`sidebar-area`}>
         <div className="logo position-relative">
           <Link
             to="/dashboard/ecommerce"

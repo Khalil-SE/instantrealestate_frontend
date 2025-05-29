@@ -177,7 +177,7 @@ import { updateUserMe } from "../../services/userService";
 
 const AdminProfile = () => {
   const user = useAuth((state) => state.user);
-  const setUser = useAuth((state) => state.setUser);
+  // const setUser = useAuth((state) => state.setUser);
 
   const [formData, setFormData] = useState({
     first_name: "",

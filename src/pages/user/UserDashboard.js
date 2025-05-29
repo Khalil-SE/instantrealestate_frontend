@@ -8,7 +8,6 @@ import { Row, Col } from "react-bootstrap";
 // import Suggestions from "../../components/Dashboard/SocialMedia/Suggestions";
 // import UpgradeYourPlan from "../../components/Dashboard/SocialMedia/UpgradeYourPlan";
 
-import ConnectLoftyButton from "../../components/LoftyRelatedComponents/ConnectLoftyButton";
 
 import useAuth from "../../store/useAuth";
 

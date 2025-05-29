@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import AdminLeftSidebar from "./AdminLeftSidebar";
@@ -11,11 +11,11 @@ import Footer from "./Footer";
 
 const AdminDashboardLayout = () => {
   const [active, setActive] = useState(false);
-  const [pathname, setPathname] = useState("");
+  // const [pathname, setPathname] = useState("");
 
-  useEffect(() => {
-    setPathname(window.location.pathname); // Get the current path
-  }, []);
+  // useEffect(() => {
+  //   setPathname(window.location.pathname); // Get the current path
+  // }, []);
 
   const toggleActive = () => {
     setActive(!active);
