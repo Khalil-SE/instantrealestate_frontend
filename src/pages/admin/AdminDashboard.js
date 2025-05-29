@@ -19,37 +19,16 @@ const AdminDashboard = () => {
     <>
       <Row>
         <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={6}>
-          <h1>{user?.first_name}</h1>
+          <h1>Welcome {user?.first_name}</h1>
+          <h4>You are logedIn as Admin</h4>
         </Col>
 
-        <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={6}>
-          <h1>Admin</h1>
-        </Col>
+        
       </Row>
 
-      <Row className="justify-content-center">
-        <Col xs={12} sm={12} md={12} lg={12} xl={5} xxl={4}>
-          <h1>ABC</h1>
-        </Col>
+    
 
-        <Col xs={12} sm={12} md={12} lg={12} xl={7} xxl={4}>
-          <h1>123</h1>
-        </Col>
-
-        <Col xs={12} sm={12} md={12} lg={12} xl={7} xxl={4}>
-          <h1>ABC</h1>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={8}>
-          <h1>123</h1>
-        </Col>
-
-        <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={4}>
-          <h1>ABC</h1>
-        </Col>
-      </Row>
+      
     </>
   );
 };

@@ -413,7 +413,7 @@ const SignUpForm = () => {
                 <Row>
                   <Col lg={6} className="mb-3">
                     <Form.Group className="mb-4">
-                      <label className="label text-secondary">State</label>
+                      <label className="label text-secondary">Company Size</label>
                       <Form.Select
                         name="sizeOfCompany"
                         value={formData.sizeOfCompany}

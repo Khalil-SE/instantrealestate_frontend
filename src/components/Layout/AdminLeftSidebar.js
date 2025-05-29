@@ -25,12 +25,12 @@ const AdminLeftSidebar = ({ toggleActive }) => {
             className="d-block text-decoration-none position-relative"
           >
             <img
-              src="/images/logo-icon.png"
+              src="/images/IRE-logo-HighResLightBg-1024x384.png"
               alt="logo-icon"
-              width={26}
-              height={26}
+              width={150}
+              height={60}
             />
-            <span className="logo-text fw-bold text-dark">Trezo</span>
+            {/* <span className="logo-text fw-bold text-dark">IRE</span> */}
           </Link>
           <button
             className="sidebar-burger-menu bg-transparent p-0 border-0 opacity-0 z-n1 position-absolute top-50 end-0 translate-middle-y"
