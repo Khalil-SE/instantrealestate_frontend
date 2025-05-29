@@ -7,15 +7,16 @@ const Footer = () => {
 
       <footer className="footer-area bg-white text-center rounded-top-7">
         <p className="fs-14">
-          © <span className="text-primary-div">Trezo</span> is Proudly Owned by{" "}
-          <a
+          Copyright © 2025 <span className="text-primary-div">Instant Real Estate</span>
+          
+          {/* <a
             href="https://envytheme.com/"
             target="_blank"
             rel="noreferrer"
             className="text-decoration-none text-primary"
           >
             EnvyTheme
-          </a>
+          </a> */}
         </p>
       </footer>
     </>
