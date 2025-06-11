@@ -140,20 +140,20 @@ useEffect(() => {
                 <Table className={`table align-middle ${styles.gradientTable}`}>
                   {/* className="table align-middle ${styles.gradientTable}" */}
                   
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Keyword</th>
-                      <th>Title</th>
-                      <th>Status</th>
-                      <th>Type</th>
-                      <th>Actions</th>
+                  <thead >
+                    <tr >
+                      <th className="fw-semibold">ID</th>
+                      <th className="fw-semibold">Keyword</th>
+                      <th className="fw-semibold">Title</th>
+                      <th className="fw-semibold">Status</th>
+                      <th className="fw-semibold">Type</th>
+                      <th className="fw-semibold">Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody >
                     {bots.map((bot) => (
-                      <tr key={bot.id}>
-                        <td>{bot.id}</td>
+                      <tr  key={bot.id}>
+                        <td >{bot.id}</td>
                         <td>{bot.keyword?.text || "N/A"}</td>
                         <td>{bot.title}</td>
                         <td>
