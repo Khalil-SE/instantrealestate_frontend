@@ -88,18 +88,18 @@ const SignInForm = () => {
             <div className="mw-480 ms-lg-auto">
               <div className="d-inline-block mb-4">
                 <img
-                  src="/images/logo.svg"
+                  src="/images/IRE-logo-HighResLightBg-1024x384.png"
                   className="rounded-3 for-light-logo"
                   alt="login"
-                  width={100}
-                  height={26}
+                  width={200}
+                  height={60}
                 />
                 <img
-                  src="/images/white-logo.svg"
+                  src="/images/IRE-logo-HighResLightBg-1024x384.png"
                   className="rounded-3 for-dark-logo"
                   alt="login"
-                  width={100}
-                  height={26}
+                  width={200}
+                  height={60}
                 />
               </div>
 
@@ -165,7 +165,7 @@ const SignInForm = () => {
 
               <Form onSubmit={handleLogin}>
 
-                {error && <p className="text-danger small">{error}</p>}
+                {error && <p className="text-danger small">{error }</p>}
 
                 <Form.Group className="mb-4">
                   <label className="label text-secondary">Email Address</label>

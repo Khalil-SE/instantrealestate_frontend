@@ -231,6 +231,9 @@ import { COMPANY_SIZES } from "../../../config/values";
 import { useState } from "react";
 import { signupUser } from "../../../services/authService";
 
+import FacebookLoginButton from "../SocialLogInButtons/FacebookLoginButton";
+import GoogleLoginButton from "../SocialLogInButtons/GoogleLoginButton";
+
 const SignUpForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -250,7 +253,8 @@ const SignUpForm = () => {
     if (!formData.last_name) newErrors.last_name = "Last name is required";
     if (!formData.email) newErrors.email = "Email is required";
     if (!formData.password) newErrors.password = "Password is required";
-    if (formData.opt_terms === false) newErrors.opt_terms = "You must agree to the terms and conditions";
+    if (formData.opt_terms === false)
+      newErrors.opt_terms = "You must agree to the terms and conditions";
     return newErrors;
   };
 
@@ -276,11 +280,12 @@ const SignUpForm = () => {
         // Handle successful signup, e.g., show a success message or redirect
         // Redirect to confirmation page or show a success message
         // console.log(formData.email);
-        navigate(ROUTES.AUTHENTICATION.CONFIRM_EMAIL, {state: {
-          email: formData.email
-        }});
+        navigate(ROUTES.AUTHENTICATION.CONFIRM_EMAIL, {
+          state: {
+            email: formData.email,
+          },
+        });
       }
-      
     } catch (error) {
       setErrors(error); //{ general: error.detail || "Signup failed." }
     } finally {
@@ -306,48 +311,27 @@ const SignUpForm = () => {
             <div className="mw-600 ms-lg-auto">
               <div className="d-inline-block mb-4">
                 <img
-                  src="/images/logo.svg"
+                  src="/images/IRE-logo-HighResLightBg-1024x384.png"
                   className="rounded-3 for-light-logo"
                   alt="login"
-                  width={100}
-                  height={26}
+                  width={200}
+                  height={60}
                 />
                 <img
-                  src="/images/white-logo.svg"
+                  src="/images/IRE-logo-HighResLightBg-1024x384.png"
                   className="rounded-3 for-dark-logo"
                   alt="login"
-                  width={100}
-                  height={26}
+                  width={200}
+                  height={60}
                 />
               </div>
 
-              <h3 className="fs-28 mb-2">Sign up to InstantRealEstate Dashboard</h3>
-              <p className="fw-medium fs-16 mb-4">Sign up with social account or enter your details</p>
-
-              <div className="row justify-content-center">
-                <div className="col-lg-6 col-sm-6">
-                  <a
-                    href="https://www.google.com/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-outline-secondary bg-transparent w-100 py-2 hover-bg mb-4"
-                    style={{ borderColor: "#D6DAE1" }}
-                  >
-                    <img src="/images/google.svg" alt="google" width={25} height={25} />
-                  </a>
-                </div>
-                <div className="col-lg-6 col-sm-6">
-                  <a
-                    href="https://www.facebook.com/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-outline-secondary bg-transparent w-100 py-2 hover-bg mb-4"
-                    style={{ borderColor: "#D6DAE1" }}
-                  >
-                    <img src="/images/facebook2.svg" alt="facebook2" width={25} height={25} />
-                  </a>
-                </div>
-              </div>
+              <h3 className="fs-28 mb-2">
+                Sign up to InstantRealEstate Dashboard
+              </h3>
+              <p className="fw-medium fs-16 mb-4">
+                Sign up with social account or enter your details
+              </p>
 
               <Form onSubmit={handleSubmit}>
                 <Row>
@@ -362,7 +346,11 @@ const SignUpForm = () => {
                         className="h-55"
                         placeholder="Enter your first name"
                       />
-                      {errors.first_name && <div className="text-danger mt-1">{errors.first_name}</div>}
+                      {errors.first_name && (
+                        <div className="text-danger mt-1">
+                          {errors.first_name}
+                        </div>
+                      )}
                     </Form.Group>
                   </Col>
                   <Col lg={6} className="mb-3">
@@ -376,14 +364,20 @@ const SignUpForm = () => {
                         className="h-55"
                         placeholder="Enter your last name"
                       />
-                      {errors.last_name && <div className="text-danger mt-1">{errors.last_name}</div>}
+                      {errors.last_name && (
+                        <div className="text-danger mt-1">
+                          {errors.last_name}
+                        </div>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
                   <Col lg={6} className="mb-3">
                     <Form.Group className="mb-3">
-                      <label className="label text-secondary">Email Address</label>
+                      <label className="label text-secondary">
+                        Email Address
+                      </label>
                       <Form.Control
                         name="email"
                         value={formData.email}
@@ -392,12 +386,16 @@ const SignUpForm = () => {
                         className="h-55"
                         placeholder="example@trezo.com"
                       />
-                      {errors.email && <div className="text-danger mt-1">{ errors.email}</div>}
+                      {errors.email && (
+                        <div className="text-danger mt-1">{(errors.email[0].includes("custom user with this email already exists") ? "user with this email already exists" : errors.email )}</div>
+                      )}
                     </Form.Group>
                   </Col>
                   <Col lg={6} className="mb-3">
                     <Form.Group className="mb-3">
-                      <label className="label text-secondary">Password</label>
+                      <label className="label text-secondary">
+                        Create Password
+                      </label>
                       <Form.Control
                         name="password"
                         value={formData.password}
@@ -406,14 +404,21 @@ const SignUpForm = () => {
                         className="h-55"
                         placeholder="Type password"
                       />
-                      {errors.password && <div className="text-danger mt-1">{errors.password}</div>}
+                      {errors.password && (
+                        <div className="text-danger mt-1">
+                          {errors.password}
+                        </div>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
-                  <Col lg={6} className="mb-3">
+                  {/* Company Size */}
+                  {/* <Col lg={6} className="mb-3">
                     <Form.Group className="mb-4">
-                      <label className="label text-secondary">Company Size</label>
+                      <label className="label text-secondary">
+                        Company Size
+                      </label>
                       <Form.Select
                         name="sizeOfCompany"
                         value={formData.sizeOfCompany}
@@ -427,11 +432,13 @@ const SignUpForm = () => {
                         ))}
                       </Form.Select>
                     </Form.Group>
-                  </Col>
+                  </Col> */}
 
-                  <Col lg={6} className="mb-3">
+                  {/* <Col lg={6} className="mb-3">
                     <Form.Group className="mb-3">
-                      <label className="label text-secondary">Opt-in Terms</label>
+                      <label className="label text-secondary">
+                        Opt-in Terms
+                      </label>
                       <Form.Check
                         name="opt_terms"
                         checked={formData.opt_terms}
@@ -439,12 +446,18 @@ const SignUpForm = () => {
                         type="checkbox"
                         label="Agree to our Terms & Privacy Policy."
                       />
-                      {errors.opt_terms && <div className="text-danger mt-1">{errors.opt_terms}</div>}
+                      {errors.opt_terms && (
+                        <div className="text-danger mt-1">
+                          {errors.opt_terms}
+                        </div>
+                      )}
                     </Form.Group>
-                  </Col>
+                  </Col> */}
                 </Row>
 
-                {errors.general && <div className="alert alert-danger">{errors.general}</div>}
+                {errors.general && (
+                  <div className="alert alert-danger">{errors.general}</div>
+                )}
 
                 <Form.Group className="mb-3">
                   <button
@@ -454,30 +467,101 @@ const SignUpForm = () => {
                   >
                     <div className="d-flex align-items-center justify-content-center py-1">
                       {loading ? (
-                        <Spinner animation="border" size="sm" className="me-2" />
+                        <Spinner
+                          animation="border"
+                          size="sm"
+                          className="me-2"
+                        />
                       ) : (
-                        <span className="material-symbols-outlined fs-20 text-white me-2">person_4</span>
+                        <span className="material-symbols-outlined fs-20 text-white me-2">
+                          person_4
+                        </span>
                       )}
                       <span>Sign Up</span>
                     </div>
                   </button>
                 </Form.Group>
 
-                <Form.Group>
+{errors.opt_terms && (
+                        <div className="text-danger mt-1">
+                          {errors.opt_terms}
+                        </div>
+                      )}
+                <Form.Group >
+                  
+                  <div className="d-flex gap-2">
+                    <Form.Check
+                        name="opt_terms"
+                        checked={formData.opt_terms}
+                        onChange={handleChange}
+                        type="checkbox"
+                        className=""
+                        label=""
+                      />
+                  
                   <p>
-                    By creating your account, you agree to our {" "}
-                    <Link to="/terms-conditions" className="fw-medium text-decoration-none">
+                    
+                    By creating your account, you agree to our{" "}
+                    <Link
+                      to="/terms-conditions"
+                      className="fw-medium text-decoration-none"
+                    >
                       Terms of Service
                     </Link>{" "}
-                    and that you have read and understood our {" "}
-                    <Link to="/privacy-policy" className="fw-medium text-decoration-none">
+                    and that you have read and understood our{" "}
+                    <Link
+                      to="/privacy-policy"
+                      className="fw-medium text-decoration-none"
+                    >
                       Privacy Policy
-                    </Link>.
+                    </Link>
+                    .
                   </p>
+                  </div>
+
+                  <div className="row justify-content-center">
+                    <div className="col-lg-6 col-sm-6">
+                      <GoogleLoginButton/>
+                      {/* <a
+                        href="https://www.google.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-outline-secondary bg-transparent w-100 py-2 hover-bg mb-4"
+                        style={{ borderColor: "#D6DAE1" }}
+                      >
+                        <img
+                          src="/images/google.svg"
+                          alt="google"
+                          width={25}
+                          height={25}
+                        />
+                      </a> */}
+                    </div>
+                    <div className="col-lg-6 col-sm-6">
+                      <FacebookLoginButton />
+                      {/* <a
+                        href="https://www.facebook.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-outline-secondary bg-transparent w-100 py-2 hover-bg mb-4"
+                        style={{ borderColor: "#D6DAE1" }}
+                      >
+                        <img
+                          src="/images/facebook2.svg"
+                          alt="facebook2"
+                          width={25}
+                          height={25}
+                        />
+                      </a> */}
+                    </div>
+                  </div>
 
                   <p>
-                    Already have an account. {" "}
-                    <Link to={ROUTES.AUTHENTICATION.SIGN_IN} className="fw-medium text-primary text-decoration-none">
+                    Already have an account.{" "}
+                    <Link
+                      to={ROUTES.AUTHENTICATION.SIGN_IN}
+                      className="fw-medium text-primary text-decoration-none"
+                    >
                       Sign In
                     </Link>
                   </p>

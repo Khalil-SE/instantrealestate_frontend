@@ -28,7 +28,7 @@ const AdminLeftSidebar = ({ toggleActive }) => {
               src="/images/IRE-logo-HighResLightBg-1024x384.png"
               alt="logo-icon"
               width={150}
-              height={60}
+              height={40}
             />
             {/* <span className="logo-text fw-bold text-dark">IRE</span> */}
           </Link>
@@ -54,7 +54,7 @@ const AdminLeftSidebar = ({ toggleActive }) => {
                 }`}
               >
                 <i className="material-symbols-outlined">Dashboard</i>
-                <span className="title">Dashboard</span>
+                <span className="title fw-semibold">Dashboard</span>
               </Link>
             </div>
 

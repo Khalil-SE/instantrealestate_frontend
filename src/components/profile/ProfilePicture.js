@@ -49,7 +49,7 @@ const ProfilePicture = ({ picture }) => {
       )}
       <div>
         <img
-          src={picture || "/images/user-68.jpg"}
+          src={picture || "/images/user-173.png"}
           className="img-fluid rounded-circle border border-2 wh-160"
           style={{ objectFit: "cover" }}
           alt="user"
@@ -59,6 +59,7 @@ const ProfilePicture = ({ picture }) => {
         <div className="position-absolute bottom-0 end-0">
           <div className="product-upload">
             <label htmlFor="file-upload" className="file-upload mb-0">
+              
               <i className="ri-image-add-line bg-primary bg-opacity-10 p-2 rounded-1 text-primary"></i>
             </label>
             <input id="file-upload" type="file" onChange={handleImageUpload} />

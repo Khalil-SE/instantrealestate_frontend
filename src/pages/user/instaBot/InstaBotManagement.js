@@ -8,6 +8,10 @@ import { ROUTES } from "../../../config/routes";
 // import { toast } from "react-toastify";
 // import InstaBotFormModal from "../../components/Modal/InstaBotFormModal";
 
+import styles from "./InstaBotTable.module.css";
+
+
+
 const InstaBotManagement = () => {
 
     const navigate = useNavigate();
@@ -119,7 +123,7 @@ useEffect(() => {
               }}
               className="btn btn-outline-primary py-1 px-2 px-sm-4 fs-14 fw-medium rounded-3 hover-bg"
             >
-              <span className="py-sm-1 d-block">
+              <span className="py-sm-1 d-block fw-semibold">
                 <i className="ri-add-line d-none d-sm-inline-block"></i>{" "}
                 <span>Create InstaBot</span>
               </span>
@@ -133,7 +137,9 @@ useEffect(() => {
           ) : (
             <div className="default-table-area all-products">
               <div className="table-responsive">
-                <Table className="table align-middle">
+                <Table className={`table align-middle ${styles.gradientTable}`}>
+                  {/* className="table align-middle ${styles.gradientTable}" */}
+                  
                   <thead>
                     <tr>
                       <th>ID</th>

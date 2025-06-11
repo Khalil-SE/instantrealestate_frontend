@@ -4,8 +4,7 @@
 
 // import { COMPANY_SIZES } from "../../config/values";
 
-
-// const UserProfile = () => {        
+// const UserProfile = () => {
 //   return (
 //     <Card className="bg-white border-0 rounded-3 mb-4 rounded-top-0">
 //         <Card.Body className="p-4">
@@ -23,13 +22,12 @@
 //                   type="button"
 //                   className="position-absolute bottom-0 end-0 btn btn-light  border-0 hover hover-bg"
 //                   // className=""
-                  
-                  
+
 //                 >
 //                   <i className="ri-add-circle-line fw-medium fs-18 me-1"></i>
 //                 </button>
 //               </div>
-              
+
 //             </div>
 
 //             <div className="d-flex align-items-center">
@@ -44,7 +42,7 @@
 //               <button type="button" className="btn btn-primary fw-medium fs-16 px-4 ms-3">
 //                 <i className="ri-lock-2-line fw-medium fs-18 me-1"></i>
 //                 <span>Reset Password</span>
-//               </button> 
+//               </button>
 //             </div>
 //           </div>
 
@@ -108,8 +106,6 @@
 //                 </Form.Group>
 //               </Col>
 
-              
-
 //               <Col lg={6}>
 //                 <Form.Group className="mb-4">
 //                   <label className="label text-secondary">Company Size</label>
@@ -137,7 +133,7 @@
 //               </Col>
 
 //               <Col lg={6} className="d-flex align-items-center">
-                
+
 //                 <Form.Group disabled>
 //                 <div className="form-check">
 //                   <input
@@ -153,8 +149,7 @@
 //                   </label>
 //                 </div>
 //               </Form.Group>
-                  
-                
+
 //               </Col>
 
 //               <Col lg={12}>
@@ -162,8 +157,6 @@
 //                 <h4 className="fs-18 mb-4 mt-4">Integration</h4>
 //               </Col>
 
-              
-              
 //               <Col lg={6}>
 //                 <Form.Group className="mb-4">
 //                   <label className="label text-secondary">ChatBot Key</label>
@@ -194,7 +187,7 @@
 
 //               <Col lg={12}>
 //                 <hr />
-                
+
 //               </Col>
 //               <Col lg={12}>
 //                 <Form.Group className="mb-4">
@@ -210,16 +203,10 @@
 //                   </Form.Group>
 //                 </Form.Group>
 //               </Col>
-              
+
 //             </Row>
 //           </Form>
 
-
-
-
-
-
-         
 //         </Card.Body>
 //         </Card>
 //   );
@@ -235,7 +222,6 @@
 // const UserProfile = () => {
 //   const user = useAuth((state) => state.user);
 //   const setUser = useAuth((state) => state.setUser);
-  
 
 //   const [formData, setFormData] = useState({
 //     first_name: "",
@@ -272,9 +258,6 @@
 //   };
 
 //   const handleEditToggle = async () => {
-
-    
-
 
 //     if (isEditing) {
 //       setIsSaving(true);
@@ -331,7 +314,6 @@
 //               <span>{isEditing ? "Save" : "Edit"}</span>
 //             </Button>
 
-            
 //           </div>
 //         </div>
 
@@ -481,10 +463,12 @@
 
 // export default UserProfile;
 
-
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Row, Col, Card, Form, Button, Spinner } from "react-bootstrap";
-import { COMPANY_SIZES } from "../../config/values";
+import { Overlay, Tooltip } from "react-bootstrap";
+import styles from "./UserProfile.module.css";
+
+// import { COMPANY_SIZES } from "../../config/values";
 import useAuth from "../../store/useAuth";
 import { updateUserMe } from "../../services/userService";
 import ProfilePicture from "../../components/profile/ProfilePicture";
@@ -496,7 +480,6 @@ const UserProfile = () => {
   // const setUser = useAuth((state) => state.setUser);
   const subscription = useAuth((state) => state.subscription);
   console.log(subscription);
-  
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -512,6 +495,9 @@ const UserProfile = () => {
   const [errors, setErrors] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+
+  const [show, setShow] = useState(false);
+  const targetRef = useRef(null);
 
   useEffect(() => {
     if (user) {
@@ -562,7 +548,7 @@ const UserProfile = () => {
         </div>
       )}
       <Card.Body className="p-4">
-        <div className="d-flex justify-content-between flex-wrap gap-3">
+        <div className="d-flex justify-content-left flex-wrap gap-3">
           <div className="d-flex align-items-end">
             {/* <div className="flex-shrink-0 position-relative">
               <img
@@ -585,17 +571,16 @@ const UserProfile = () => {
             <ProfilePicture picture={user?.picture} />
           </div>
 
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-end">
             <Button
               onClick={handleEditToggle}
-              className={`btn ${isEditing ? "btn-success" : "btn-primary"} py-2 px-4 fw-medium fs-16`} 
-              
+              className={`btn ${
+                isEditing ? "btn-info" : "btn-primary"
+              } py-2 px-4 fw-medium fs-16`}
             >
               <i className="ri-edit-line fw-medium fs-18 me-1"></i>
               {isEditing ? "Save" : "Edit"}
             </Button>
-
-            
           </div>
         </div>
 
@@ -606,81 +591,98 @@ const UserProfile = () => {
             <Col lg={6}>
               <Form.Group className="mb-4">
                 <label className="label text-secondary">First Name</label>
-                <Form.Group className="position-relative">  
-                <Form.Control 
-                  name="first_name"
-                  value={formData.first_name}
-                  onChange={handleChange}
-                  type="text"
-                  className={`text-dark ps-5 h-55 ${errors.first_name ? "is-invalid" : ""}`}
-                  disabled={!isEditing}
-                />
-                <i className="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+                <Form.Group className="position-relative">
+                  <Form.Control
+                    name="first_name"
+                    value={formData.first_name}
+                    onChange={handleChange}
+                    type="text"
+                    className={`text-dark ps-5 h-55 ${
+                      errors.first_name ? "is-invalid" : ""
+                    }`}
+                    disabled={!isEditing}
+                  />
+                  <i className="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
                 </Form.Group>
-                {errors.first_name && <div className="invalid-feedback d-block">{errors.first_name}</div>}
+                {errors.first_name && (
+                  <div className="invalid-feedback d-block">
+                    {errors.first_name}
+                  </div>
+                )}
               </Form.Group>
-
-              
-
-
-
             </Col>
 
             <Col lg={6}>
               <Form.Group className="mb-4">
                 <label className="label text-secondary">Last Name</label>
-                <Form.Group className="position-relative"> 
-                <Form.Control
-                  name="last_name"
-                  value={formData.last_name}
-                  onChange={handleChange}
-                  type="text"
-                  className={`text-dark ps-5 h-55 ${errors.last_name ? "is-invalid" : ""}`}
-                  disabled={!isEditing}
-                />
-                <i className="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+                <Form.Group className="position-relative">
+                  <Form.Control
+                    name="last_name"
+                    value={formData.last_name}
+                    onChange={handleChange}
+                    type="text"
+                    className={`text-dark ps-5 h-55 ${
+                      errors.last_name ? "is-invalid" : ""
+                    }`}
+                    disabled={!isEditing}
+                  />
+                  <i className="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
                 </Form.Group>
-                {errors.last_name && <div className="invalid-feedback d-block">{errors.last_name}</div>}
+                {errors.last_name && (
+                  <div className="invalid-feedback d-block">
+                    {errors.last_name}
+                  </div>
+                )}
               </Form.Group>
             </Col>
 
             <Col lg={6}>
               <Form.Group className="mb-4">
                 <label className="label text-secondary">Email</label>
-                <Form.Group className="position-relative"> 
-                <Form.Control
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  type="email"
-                  className={`text-dark ps-5 h-55 ${errors.email ? "is-invalid" : ""}`}
-                  disabled={!isEditing}
-                />
-                <i className="ri-mail-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+                <Form.Group className="position-relative">
+                  <Form.Control
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    type="email"
+                    className={`text-dark ps-5 h-55 ${
+                      errors.email ? "is-invalid" : ""
+                    }`}
+                    disabled={!isEditing}
+                  />
+                  <i className="ri-mail-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
                 </Form.Group>
-                {errors.email && <div className="invalid-feedback d-block">{errors.email}</div>}
+                {errors.email && (
+                  <div className="invalid-feedback d-block">{errors.email}</div>
+                )}
               </Form.Group>
             </Col>
 
             <Col lg={6}>
               <Form.Group className="mb-4">
                 <label className="label text-secondary">Phone</label>
-                <Form.Group className="position-relative"> 
-                <Form.Control
-                  name="phone_number"
-                  value={formData.phone_number}
-                  onChange={handleChange}
-                  type="text"
-                  className={`text-dark ps-5 h-55 ${errors.phone_number ? "is-invalid" : ""}`}
-                  disabled={!isEditing}
-                />
-                <i className="ri-phone-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+                <Form.Group className="position-relative">
+                  <Form.Control
+                    name="phone_number"
+                    value={formData.phone_number}
+                    onChange={handleChange}
+                    type="text"
+                    className={`text-dark ps-5 h-55 ${
+                      errors.phone_number ? "is-invalid" : ""
+                    }`}
+                    disabled={!isEditing}
+                  />
+                  <i className="ri-phone-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
                 </Form.Group>
-                {errors.phone_number && <div className="invalid-feedback d-block">{errors.phone_number}</div>}
+                {errors.phone_number && (
+                  <div className="invalid-feedback d-block">
+                    {errors.phone_number}
+                  </div>
+                )}
               </Form.Group>
             </Col>
 
-            <Col lg={6}>
+            {/* <Col lg={6}>
               <Form.Group className="mb-4">
                 <label className="label text-secondary">Company Size</label>
                 <Form.Group className="position-relative">
@@ -715,60 +717,105 @@ const UserProfile = () => {
                   <label className="form-check-label">Terms and Conditions</label>
                 </div>
               </Form.Group>
-            </Col>
+            </Col> */}
 
             <Col lg={12}>
               <hr />
-              <h4 className="fs-18 mb-4 mt-4">Integration</h4>
+              <h4 className="fs-18 mb-4 mt-4">ChatBot Software Integration</h4>
             </Col>
 
             <Col lg={6}>
               <Form.Group className="mb-4">
-                <label className="label text-secondary">ChatBot Key</label>
-                <Form.Group className="position-relative"> 
-                <Form.Control
-                  name="chatBot_key"
-                  value={formData.chatBot_key}
-                  onChange={handleChange}
-                  type="text"
-                  className={`text-dark ps-5 h-55 ${errors.chatBot_key ? "is-invalid" : ""}`}
-                  disabled={!isEditing}
-                />
-                <i className="ri-key-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+                <label className="label text-secondary">
+                  ChatBot API Key
+                  <div
+    ref={targetRef}
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setShow(true)}
+    onMouseLeave={() => setShow(false)}
+  >
+    <i className="ri-information-line text-primary fs-5" style={{ cursor: "pointer" }}></i>
+
+    <Overlay target={targetRef.current} show={show} placement="right">
+      {(props) => (
+        <Tooltip {...props} className={styles.tooltipBox}>
+          This is your personal chatbot key. <br />
+          You can manage it from the{" "}
+          <a
+            href="https://youtube.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()} // optional
+          >
+            chatbot dashboard
+          </a>.
+        </Tooltip>
+      )}
+    </Overlay>
+  </div>
+                </label>
+                <Form.Group className="position-relative">
+                  <Form.Control
+                    name="chatBot_key"
+                    value={formData.chatBot_key}
+                    onChange={handleChange}
+                    type="text"
+                    className={`text-dark ps-5 h-55 ${
+                      errors.chatBot_key ? "is-invalid" : ""
+                    }`}
+                    disabled={!isEditing}
+                  />
+                  <i className="ri-key-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
                 </Form.Group>
-                {errors.chatBot_key && <div className="invalid-feedback d-block">{errors.chatBot_key}</div>}
+                {errors.chatBot_key && (
+                  <div className="invalid-feedback d-block">
+                    {errors.chatBot_key}
+                  </div>
+                )}
               </Form.Group>
             </Col>
 
             <Col lg={6}>
               <Form.Group className="mb-4">
                 <label className="label text-secondary">ChatBot User ID</label>
-                <Form.Group className="position-relative"> 
-                <Form.Control
-                  name="chatBot_user_id"
-                  value={formData.chatBot_user_id}
-                  onChange={handleChange}
-                  type="text"
-                  className={`text-dark ps-5 h-55 ${errors.chatBot_user_id ? "is-invalid" : ""}`}
-                  disabled={!isEditing}
-                />
-                <i className="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+                <Form.Group className="position-relative">
+                  <Form.Control
+                    name="chatBot_user_id"
+                    value={formData.chatBot_user_id}
+                    onChange={handleChange}
+                    type="text"
+                    className={`text-dark ps-5 h-55 ${
+                      errors.chatBot_user_id ? "is-invalid" : ""
+                    }`}
+                    disabled={!isEditing}
+                  />
+                  <i className="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
                 </Form.Group>
-                {errors.chatBot_user_id && <div className="invalid-feedback d-block">{errors.chatBot_user_id}</div>}
+                {errors.chatBot_user_id && (
+                  <div className="invalid-feedback d-block">
+                    {errors.chatBot_user_id}
+                  </div>
+                )}
               </Form.Group>
             </Col>
 
             <Col lg={12}>
+              <hr />
+              <h4 className="fs-18 mb-4 mt-4">Integration</h4>
+            </Col>
+            <Col lg={12}>
               <Form.Group className="mb-4">
-                <label className="label text-secondary">Instant Real Estate API Key</label>
-                <Form.Group className="position-relative"> 
-                <Form.Control
-                  value={formData.api_key}
-                  type="text"
-                  className="text-dark ps-5 h-55"
-                  disabled
-                />
-                <i className="ri-key-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+                <label className="label text-secondary">
+                  Instant Real Estate API Key
+                </label>
+                <Form.Group className="position-relative">
+                  <Form.Control
+                    value={formData.api_key}
+                    type="text"
+                    className="text-dark ps-5 h-55"
+                    disabled
+                  />
+                  <i className="ri-key-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
                 </Form.Group>
               </Form.Group>
             </Col>

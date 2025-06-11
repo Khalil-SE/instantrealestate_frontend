@@ -17,7 +17,7 @@ const UserLeftSidebar = ({ toggleActive }) => {
   return (
     <>
       {/* <div className={`sidebar-area ${isDark ? "dark" : ""}`}> */}
-      <div className={`sidebar-area`}>
+      <div className={`sidebar-area `}>
         <div className="logo position-relative">
           <Link
             to="/dashboard/ecommerce"
@@ -53,7 +53,7 @@ const UserLeftSidebar = ({ toggleActive }) => {
                 }`}
               >
                 <i className="material-symbols-outlined">Dashboard</i>
-                <span className="title">Dashboard</span>
+                <span className="title fw-bold">Dashboard</span>
               </Link>
             </div>
             <div className="menu-item">
@@ -63,7 +63,7 @@ const UserLeftSidebar = ({ toggleActive }) => {
                   pathname === ROUTES.USER.LOFTY_PROPERTIES ? "active" : ""
                 }`}
               >
-                <i className="material-symbols-outlined">LP</i>
+                <i className="material-symbols-outlined">Home</i>
                 <span className="title">Properties</span>
               </Link>
             </div>
@@ -76,7 +76,7 @@ const UserLeftSidebar = ({ toggleActive }) => {
                   pathname === ROUTES.USER.INSTABOT.INSTABOTS ? "active" : ""
                 }`}
               >
-                <i className="material-symbols-outlined">iB</i>
+                <i className="material-symbols-outlined">Rocket</i>
                 <span className="title">InstaBots</span>
               </Link>
             </div>
@@ -116,7 +116,7 @@ const UserLeftSidebar = ({ toggleActive }) => {
                     </Link>
                   </li>
 
-                  <li className="menu-item">
+                  {/* <li className="menu-item">
                     <Link
                       to={ROUTES.USER.PRIVACY_POLICY}
                       className={`menu-link ${
@@ -126,9 +126,9 @@ const UserLeftSidebar = ({ toggleActive }) => {
                       <i className="material-symbols-outlined">Policy</i>
                       <span className="title">Privacy Policy</span>
                     </Link>
-                  </li>
+                  </li> */}
 
-                  <li className="menu-item">
+                  {/* <li className="menu-item">
                     <Link
                       to={ROUTES.USER.TERMS_CONDITIONS}
                       className={`menu-link ${
@@ -140,7 +140,7 @@ const UserLeftSidebar = ({ toggleActive }) => {
                       <i className="material-symbols-outlined">Conditions</i>
                       <span className="title">Terms & Conditions</span>
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </Accordion.Body>
             </Accordion.Item>

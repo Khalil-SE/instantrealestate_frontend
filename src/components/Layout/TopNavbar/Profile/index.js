@@ -84,7 +84,7 @@ const Profile = () => {
             </div>
             <div className="flex-grow-1 ms-2">
               <h3 className="fw-medium">{ user?.first_name + " " + user?.last_name }</h3>
-              <span className="fs-12">{ user?.email }</span>
+              <span className="fs-12 d-block w-100 text-break">{ user?.email }</span>
             </div>
           </div>
 

@@ -1,0 +1,9 @@
+.tooltipBox {
+  max-width: 220px;
+  font-size: 0.875rem;
+}
+
+.tooltipBox a {
+  color: #ffffff;
+  text-decoration: underline;
+}

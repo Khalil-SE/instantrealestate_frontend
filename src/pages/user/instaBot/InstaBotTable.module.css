@@ -1,0 +1,33 @@
+.gradientTable thead {
+  /* background: none !important; */
+  /* background-image: radial-gradient(circle at 30% 40%, #00c3ff87, #00ffe181, #ffffff) !important; */
+  background: linear-gradient(to top, #ffe5b488, #fffacd88, #ffffff) !important; /* light orange → light yellow → white */
+  color: #1a1a1a !important;
+  font-weight: 600 !important;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  
+
+  box-shadow: 0 0 25px rgba(0, 225, 255, 0.15);
+  backdrop-filter: blur(3px); /* subtle blur effect */
+}
+
+/* Override Bootstrap's default th style */
+.gradientTable thead th {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 16px 20px !important;
+  text-align: center !important;
+  font-size: 14px !important;
+  color: #1a1a1a !important;
+  white-space: nowrap;
+}
+
+
+.gradientTable thead tr:first-child th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.gradientTable thead tr:first-child th:last-child {
+  border-top-right-radius: 12px;
+}
