@@ -52,7 +52,7 @@ const Profile = () => {
           <div className="flex-shrink-0">
             <img
               className="rounded-circle wh-40 administrator"
-              src= {user?.picture? user.picture :   "/images/user-173.png"}
+              src= {user?.picture? user.picture :   "/images/custom/robot_profile_pic_m.jpeg"}
               alt="admin"
               width={40}
               height={40}
@@ -76,7 +76,7 @@ const Profile = () => {
             <div className="flex-shrink-0">
               <img
                 className="rounded-circle wh-30 administrator"
-                src= "/images/user-173.png"
+                src= {user?.picture? user.picture :   "/images/custom/robot_profile_pic_m.jpeg"}
                 alt="admin"
                 width={30}
                 height={30}

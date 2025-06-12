@@ -7,7 +7,7 @@ import ScrollToTop from "./ScrollToTop";
 import Footer from "./Footer";
 
 
-
+import BackgroundGradient from "./DesigningBG/BackgroundGradient";
 
 const UserDashboardLayout = () => {
   const [active, setActive] = useState(false);
@@ -50,6 +50,7 @@ const UserDashboardLayout = () => {
             
             <UserTopNavbar toggleActive={toggleActive} />
               
+              <BackgroundGradient />
 
             <Outlet />
 

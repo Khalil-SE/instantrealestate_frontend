@@ -1,0 +1,44 @@
+/* BackgroundGradient.module.css */
+.gradient-background-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Ensure it's behind all content */
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.6;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+/* Example blobs with different positions and colors */
+.blob1 {
+  top: 10%;
+  left: 20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #00c3ff, #00ffe1);
+}
+
+.blob2 {
+  bottom: 20%;
+  right: 15%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #ffcf71, #fbd786);
+}
+
+.blob3 {
+  top: 50%;
+  left: 70%;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, #a18cd1, #fbc2eb);
+}

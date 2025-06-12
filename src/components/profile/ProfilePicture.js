@@ -49,7 +49,7 @@ const ProfilePicture = ({ picture }) => {
       )}
       <div>
         <img
-          src={picture || "/images/user-173.png"}
+          src={picture || "/images/custom/robot_profile_pic_m.jpeg"}
           className="img-fluid rounded-circle border border-2 wh-160"
           style={{ objectFit: "cover" }}
           alt="user"

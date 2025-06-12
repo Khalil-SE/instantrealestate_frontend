@@ -475,6 +475,7 @@ import ProfilePicture from "../../components/profile/ProfilePicture";
 
 import ConnectLoftyButton from "../../components/LoftyRelatedComponents/ConnectLoftyButton";
 
+
 const UserProfile = () => {
   const user = useAuth((state) => state.user);
   // const setUser = useAuth((state) => state.setUser);
@@ -538,7 +539,8 @@ const UserProfile = () => {
   };
 
   return (
-    <Card className="bg-white border-0 rounded-3 mb-4 rounded-top-0">
+    <Card className="shadow-lg bg-white border-0 rounded-3 mb-4 ">
+
       {isSaving && (
         <div
           className="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
