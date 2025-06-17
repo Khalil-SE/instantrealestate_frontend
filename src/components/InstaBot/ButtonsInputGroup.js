@@ -28,17 +28,26 @@ const ButtonsInputGroup = ({
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center">
-        <label className="label text-secondary">Buttons</label>
+        <label className="label">
+          <h6>Buttons</h6>
+          
+          </label>
         <Button variant="primary" onClick={handleAddButton} disabled={buttons.length >= maxButtons}>
           <i className="ri-add-line"></i> Add Button
         </Button>
       </div>
 
+ <Card className="p-4 mt-3" style={{ backgroundColor: "#ffffff" }} >
+           <Card.Body >
       {buttons.map((btn, idx) => (
-        <Card className="p-4 mt-3" key={idx}>
-          <Card.Body>
+        
+        <div key={idx}>
             <div className="d-flex justify-content-between align-items-center mb-2">
-              <label className="label text-secondary">Button {idx + 1}</label>
+              <label className="label text-secondary">
+                <h6>
+                  Button {idx + 1}
+                </h6>
+                </label>
               <button
                 className="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
                 onClick={() => handleRemoveButton(idx)}
@@ -68,9 +77,12 @@ const ButtonsInputGroup = ({
                 <i className="ri-link position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
               </Form.Group>
             </Form.Group>
-          </Card.Body>
-        </Card>
+            </div>
+        
       ))}
+
+         </Card.Body>
+         </Card>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-import { Container, Card, Col, Form, Button } from "react-bootstrap";
+import { Container, Card,Row, Col, Form, Button } from "react-bootstrap";
 import EmojiTextInput from "./EmojiTextInput"; // Adjust the import path as necessary
 
 const InstaBotCustomForm = ({ formData, setFormData, onSubmit }) => {
@@ -28,6 +28,7 @@ const handleRemoveEmail = (idx) => {
 
   return (
     <Container className="mt-4" style={{ maxHeight: "80vh", overflowY: "auto" }}>
+      <Row>
       <Col lg={12}>
         <Form.Group className="mb-4">
           <label className="label text-secondary">Message Type</label>
@@ -47,6 +48,9 @@ const handleRemoveEmail = (idx) => {
           </Form.Group>
         </Form.Group>
       </Col>
+      </Row>
+
+      <Row>
       <Col lg={12}>
         <Form.Group className="mb-4">
           <label className="label text-secondary">Keyword</label>
@@ -65,7 +69,9 @@ const handleRemoveEmail = (idx) => {
           </Form.Group>
         </Form.Group>
       </Col>
+      </Row>
 
+      <Row>
       <Col lg={12}>
         <Form.Group className="mb-4">
           <label className="label text-secondary">Image Upload</label>
@@ -92,6 +98,9 @@ const handleRemoveEmail = (idx) => {
           </Form.Group>
         </Form.Group>
       </Col>
+      </Row>
+
+      <Row>
 
       <Col lg={12}>
         <EmojiTextInput
@@ -116,10 +125,15 @@ const handleRemoveEmail = (idx) => {
         </Form.Group> */}
       </Col>
 
+      </Row>
+
+
+          <Row>
       <Col lg={12}>
         <EmojiTextInput label="Message" type="textarea" />
       </Col>
-
+</Row>
+<Row>
       <Col lg={12}>
         <div className="d-flex justify-content-between align-items-center">
           {/* Left‐aligned text */}
@@ -226,6 +240,9 @@ const handleRemoveEmail = (idx) => {
         </Card>
       </Col>
 
+      </Row>
+
+<Row>
       <Col lg={12}>
         <Form.Group className="mb-4">
           <label className="label text-secondary">Public Reply</label>
@@ -266,10 +283,15 @@ const handleRemoveEmail = (idx) => {
           </div>
         </Form.Group>
       </Col>
+</Row>
 
+<Row>
       <Col lg={12}>
         <EmojiTextInput label="AI Post Description" type="textarea" />
       </Col>
+      </Row>
+
+      <Row>
       <Col lg={12}>
       
       <Form.Group className="mb-4">
@@ -301,12 +323,17 @@ const handleRemoveEmail = (idx) => {
   </Form.Group>
         
       </Col>
+
+      </Row>
       
-        <Col lg={12} className="d-flex justify-content-center">
-        <button type="submit" className="btn btn-primary">
+
+      <Row>
+        <Col lg={12} className="w-100" >
+        <button type="submit" className="btn btn-primary w-100" style={{width:'100%'}} >
             Crete InstaBot
           </button>
         </Col>
+        </Row>
 
       {/* <Card className="p-4">
         <h3>InstaBot Custom Form</h3>

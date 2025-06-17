@@ -19,10 +19,10 @@ const DMMessageScreen = ({ formData = {}, buttons = [] }) => {
   } = formData;
 
   return (
-    <IPhoneMockup screenWidth={350}>
+    <IPhoneMockup screenWidth={300}>
       <Container fluid className="d-flex flex-column p-0">
         {/* Chat Area */}
-        <div className="flex-grow-1 overflow-auto p-3">
+        <div className="flex-grow-1 overflow-auto p-3 bg-white">
           <Row className="justify-content-start mb-4">
             <Col xs="auto">
               <Image

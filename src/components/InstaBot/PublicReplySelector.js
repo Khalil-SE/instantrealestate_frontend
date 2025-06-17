@@ -11,8 +11,12 @@ const PublicReplySelector = ({
   onDelete = () => {},
 }) => {
   return (
-    <Form.Group className="mb-4">
-      <label className="label text-secondary">Public Reply</label>
+    <Form.Group className="mb-4 mt-3">
+      <label className="label text-secondary">
+        <h6>
+        Public Reply
+        </h6>
+        </label>
       <div className="d-flex justify-content-between align-items-center">
         <Form.Group className="position-relative flex-grow-1 me-3">
           <Form.Select

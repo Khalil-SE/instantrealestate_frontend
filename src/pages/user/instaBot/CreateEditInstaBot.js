@@ -150,6 +150,8 @@ import { Row, Col, Container } from "react-bootstrap";
 import { getInstaBotById } from "../../../services/instabotService"; // Adjust the import path as needed
 import { ROUTES } from "../../../config/routes";
 
+import styles from "./DMMessageScreen.module.css"; // Adjust the import path as needed
+
 const CreateEditInstaBot = () => {
   
   const { id } = useParams();  // id from /edit/:id
@@ -219,7 +221,7 @@ const CreateEditInstaBot = () => {
     }
 
     setButtons(buttonArray);
-    setEmails(data.recipients || []);
+    setEmails(data.email_recipients || []);
     setCurrentInstaBot(data);
   } catch (err) {
     console.error("Failed to fetch bot data", err);
@@ -319,11 +321,15 @@ const CreateEditInstaBot = () => {
             setEmailInput={setEmailInput}
           />
         </Col>
-        <Col md={6}>
+        <Col md={6} className="d-flex justify-content-center align-items-start">
+<div className={styles.previewWrapper}>
+    <div className={styles.stickyPreview}>
           <DMMessageScreen
             formData={formData}
             buttons={buttons}
           />
+          </div>
+          </div> 
         </Col>
       </Row>
     </Container>

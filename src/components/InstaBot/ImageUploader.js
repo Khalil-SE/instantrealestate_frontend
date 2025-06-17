@@ -12,7 +12,8 @@ const ImageUploader = ({ setImage, disabled = false }) => {
   };
   return (
     <div className="form-group mb-4">
-      <label className="label text-secondary">Image Upload</label>
+      <label className="label">
+        <h6 >Image Upload</h6></label>
       <div className="form-control h-100 text-center position-relative p-4 p-lg-5">
         <div className="product-upload">
           <label htmlFor="file-upload" className="file-upload mb-0">

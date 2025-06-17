@@ -36,7 +36,11 @@ const KeywordInput = ({
 
   return (
     <Form.Group className="mb-4">
-      <label className="label text-secondary">Keyword</label>
+      <label className="label">
+        <h6 >
+        Keyword
+        </h6>
+        </label>
       <Form.Group className="position-relative">
         <Form.Control
           type="text"

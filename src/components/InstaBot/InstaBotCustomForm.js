@@ -176,7 +176,7 @@ const handleSubmit = async (e) => {
       button2_url: buttons[1]?.url || "",
       button3_text: buttons[2]?.text || "",
       button3_url: buttons[2]?.url || "",
-      recipients: emails,
+      email_recipients: emails,
     };
 
     try {
@@ -399,12 +399,16 @@ const handleSubmit = async (e) => {
   return (
     <Container
       className="mt-4"
-      style={{ maxHeight: "80vh", overflowY: "auto" }}
+      // style={{ maxHeight: "80vh", overflowY: "auto" }}
     >
       <Form onSubmit={handleSubmit}>
         <Col lg={12}>
           <Form.Group className="mb-4">
-            <label className="label text-secondary">Message Type</label>
+            <label className="label">
+              <h6 >
+              Message Type
+              </h6>
+              </label>
             <Form.Group className="position-relative">
               <Form.Select
                 className="form-control ps-5 h-55"
@@ -512,9 +516,9 @@ const handleSubmit = async (e) => {
           </Form.Group>
         </Form.Group>
 
-        <Col lg={12} className="d-flex justify-content-center">
+        <Col lg={12} className="d-flex">
         
-          <Button type="submit" className="btn btn-primary">
+          <Button type="submit" className="btn btn-primary w-100 fw-semibold">
             {isEditMode ? "Update InstaBot" : "Create InstaBot"}
           </Button>
         </Col>

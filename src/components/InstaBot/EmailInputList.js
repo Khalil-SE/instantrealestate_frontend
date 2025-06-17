@@ -26,7 +26,11 @@ const EmailInputList = ({
 
   return (
     <Form.Group className="mb-4">
-      <label className="label text-secondary">Email Addresses</label>
+      <label className="label text-secondary">
+        <h6>
+        Email Addresses
+        </h6>
+        </label>
       <div
         className="form-control d-flex flex-wrap align-items-center"
         style={{ minHeight: 55, maxHeight: 120, overflowY: "auto", gap: 4 }}

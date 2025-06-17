@@ -55,13 +55,14 @@ const PublicReplyModal = ({
               value={text}
               onChange={(val) => handleReplyChange(idx, val)}
               placeholder={`Reply ${idx + 1}`}
+              className="flex-grow-1"
             />
             {replies.length > 1 && (
               <Button
                 size="sm"
                 variant="outline-danger"
                 onClick={() => handleRemoveReply(idx)}
-                className="ms-2 mt-3"
+                className="ms-2 mt-3 flex-shrink-0"
               >
                 Remove
               </Button>

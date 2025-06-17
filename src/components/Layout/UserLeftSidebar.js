@@ -17,7 +17,7 @@ const UserLeftSidebar = ({ toggleActive }) => {
   return (
     <>
       {/* <div className={`sidebar-area ${isDark ? "dark" : ""}`}> */}
-      <div className={`sidebar-area `}>
+      <div className={`sidebar-area`} style={{ backgroundColor: "#f8f9fa" }}>
         <div className="logo position-relative">
           <Link
             to="/dashboard/ecommerce"
