@@ -123,7 +123,9 @@ const AdminSystemSettings = () => {
       setIsLoading(true);
       try {
         const data = await getSystemSettings();
-        setSettings({ ...settings, ...data });
+        // setSettings({ ...settings, ...data });
+        setSettings((prev) => ({ ...prev, ...data }));
+        setError(null);
       } catch (err) {
         console.error("Error fetching settings", err);
         setError("Failed to load settings.");
