@@ -157,7 +157,7 @@ const PropertyFormModal = ({
   };
 
   return (
-    <Modal show={show} onHide={onHide} size="lg" centered>
+    <Modal show={show} onHide={onHide} size="lg" centered >
       <Modal.Header closeButton>
         <Modal.Title>
           {mode === "edit" ? "Edit" : "Create"} Property

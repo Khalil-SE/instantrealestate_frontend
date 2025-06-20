@@ -41,7 +41,7 @@ const LoftyImportModal = ({ show, onClose, onImport }) => {
           </div>
         ) : (
           <div className="table-responsive">
-            <Table  bordered hover>
+            <Table className="table"  bordered hover>
               <thead>
                 <tr>
                   <th>Address</th>
