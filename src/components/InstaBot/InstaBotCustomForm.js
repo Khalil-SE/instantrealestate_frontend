@@ -430,7 +430,8 @@ const handleSubmit = async (e) => {
 {formErrors.keyword?.text && <div className="text-danger small mt-1">{formErrors.keyword?.text[0]}</div>}
 
         <KeywordInput
-          instaBotObj = {instaBotObj}
+        existingKeywordObj={instaBotObj?.keyword}
+          // instaBotObj = {instaBotObj}
           value={formData.keyword}
           onChange={(val) => handleChange("keyword", val)}
         />

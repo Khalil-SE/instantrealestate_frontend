@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Table, Form, Spinner } from "react-bootstrap";
-import { getAllInstaBots, deleteInstaBot } from "../../../services/instabotService";
+import {
+  getAllInstaBots,
+  deleteInstaBot,
+  updateInstaBot,
+} from "../../../services/instabotService";
 import ConfirmModal from "../../../components/Modal/ConfirmModal";
 import { toast } from "react-toastify";
 import { ROUTES } from "../../../config/routes";
@@ -10,19 +14,16 @@ import { ROUTES } from "../../../config/routes";
 
 import styles from "./InstaBotTable.module.css";
 
-
-
 const InstaBotManagement = () => {
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [bots, setBots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-//   const [selectedBot, setSelectedBot] = useState(null);
-//   const [modalType, setModalType] = useState(null);
+  //   const [selectedBot, setSelectedBot] = useState(null);
+  //   const [modalType, setModalType] = useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [botToDelete, setBotToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
@@ -47,24 +48,24 @@ const InstaBotManagement = () => {
   //   fetchBots();
   // }, [currentPage, searchQuery]);
   const fetchBots = useCallback(async () => {
-  setLoading(true);
-  try {
-    const data = await getAllInstaBots({
-      page: currentPage,
-      search: searchQuery,
-    });
-    setBots(data.results);
-    setTotalPages(Math.ceil(data.count / 10));
-  } catch (error) {
-    console.error("Error fetching bots:", error);
-  } finally {
-    setLoading(false);
-  }
-}, [currentPage, searchQuery]); // Dependencies that affect the fetch
+    setLoading(true);
+    try {
+      const data = await getAllInstaBots({
+        page: currentPage,
+        search: searchQuery,
+      });
+      setBots(data.results);
+      setTotalPages(Math.ceil(data.count / 10));
+    } catch (error) {
+      console.error("Error fetching bots:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [currentPage, searchQuery]); // Dependencies that affect the fetch
 
-useEffect(() => {
-  fetchBots();
-}, [fetchBots]); // Clean and valid now
+  useEffect(() => {
+    fetchBots();
+  }, [fetchBots]); // Clean and valid now
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -85,11 +86,27 @@ useEffect(() => {
       toast.success("InstaBot deleted successfully");
       fetchBots();
     } catch (err) {
-        toast.error("Failed to delete InstaBot");
+      toast.error("Failed to delete InstaBot");
       console.error("Failed to delete InstaBot", err);
     } finally {
       setDeleting(false);
       setShowDeleteConfirm(false);
+    }
+  };
+
+  const handleToggleStatus = async (bot) => {
+    const newStatus = bot.status === "active" ? "inactive" : "active";
+    try {
+      await updateInstaBot(bot.id, { status: newStatus });
+      toast.success(
+        `InstaBot ${
+          newStatus === "active" ? "activated" : "deactivated"
+        } successfully`
+      );
+      fetchBots();
+    } catch (err) {
+      toast.error("Failed to update InstaBot status");
+      console.error("Toggle error:", err);
     }
   };
 
@@ -118,7 +135,7 @@ useEffect(() => {
             <button
               onClick={() => {
                 // setModalType("add");
-                navigate(ROUTES.USER.INSTABOT.CREATE_INSTABOT)
+                navigate(ROUTES.USER.INSTABOT.CREATE_INSTABOT);
                 // setSelectedBot(null);
               }}
               className="btn btn-outline-primary py-1 px-2 px-sm-4 fs-14 fw-medium rounded-3 hover-bg"
@@ -139,31 +156,44 @@ useEffect(() => {
               <div className="table-responsive">
                 <Table className={`table align-middle ${styles.gradientTable}`}>
                   {/* className="table align-middle ${styles.gradientTable}" */}
-                  
-                  <thead >
-                    <tr >
+
+                  <thead>
+                    <tr>
                       <th className="fw-semibold">ID</th>
                       <th className="fw-semibold">Keyword</th>
                       <th className="fw-semibold">Title</th>
                       <th className="fw-semibold">Status</th>
                       <th className="fw-semibold">Type</th>
+                      <th className="fw-semibold">Active</th>
                       <th className="fw-semibold">Actions</th>
                     </tr>
                   </thead>
-                  <tbody >
+                  <tbody>
                     {bots.map((bot) => (
-                      <tr  key={bot.id}>
-                        <td >{bot.id}</td>
+                      <tr key={bot.id}>
+                        <td>{bot.id}</td>
                         <td>{bot.keyword?.text || "N/A"}</td>
                         <td>{bot.title}</td>
                         <td>
-                          <span className={`badge bg-opacity-10 p-2 fs-12 fw-medium text-capitalize ${
-                            bot.status === "active" ? "finished" : "cancelled"
-                          }`}>
+                          <span
+                            className={`badge bg-opacity-10 p-2 fs-12 fw-medium text-capitalize ${
+                              bot.status === "active" ? "finished" : "cancelled"
+                            }`}
+                          >
                             {bot.status}
                           </span>
                         </td>
                         <td>{bot.message_type}</td>
+                        <td>
+                          <Form.Check
+                            type="switch"
+                            id={`instabot-toggle-${bot.id}`}
+                            checked={bot.status === "active"}
+                            onChange={() => handleToggleStatus(bot)}
+                            className="ms-2"
+                            label=""
+                          />
+                        </td>
                         <td>
                           <div className="d-flex align-items-center gap-1">
                             {/* <button
@@ -180,7 +210,11 @@ useEffect(() => {
                             <button
                               onClick={() => {
                                 // setModalType("edit");
-                                navigate( ROUTES.USER.INSTABOT.GET_EDIT_INSTABOT_URL( bot.id));
+                                navigate(
+                                  ROUTES.USER.INSTABOT.GET_EDIT_INSTABOT_URL(
+                                    bot.id
+                                  )
+                                );
                                 // setSelectedBot(bot);
                               }}
                               className="btn btn-sm btn-link text-body"

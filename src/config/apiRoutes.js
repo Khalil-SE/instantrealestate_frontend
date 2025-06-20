@@ -1,4 +1,5 @@
 
+
 export const API_ROUTES = {
   BASE_URL : process.env.REACT_APP_BACKEND_URL,
   AUTH: {
@@ -19,7 +20,15 @@ export const API_ROUTES = {
     UPLOAD_PICTURE: 'users/upload-picture/',
   },
   USERS: {
-    LOFTY_PROPERTIES: 'lofty/fetch-properties/',
+    PROPERTY: {
+      LIST: 'property/',
+      DETAIL: (id) => `property/${id}/`,
+      LOFTY_PROPERTIES: 'property/lofty/properties/',
+      LOFTY_PROPERTY_IMPORTED: (listingId) => `property/lofty/mark-imported/${listingId}/`,
+      FETCH_LOFTY_PROPERTIES: 'property/lofty/fetch-properties/',
+      CONNECT_LOFTY: 'property/lofty/connect/',
+    },
+    
     SUBSCRIPTIONS: {
       ME: 'subscriptions/me/',
       PLANS: 'subscriptions/plans/',

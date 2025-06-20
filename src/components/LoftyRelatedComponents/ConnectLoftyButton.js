@@ -14,7 +14,7 @@ const ConnectLoftyButton = () => {
       console.warn("User is missing API key!");
       return;
     }
-    const redirectUrl = `http://127.0.0.1:8000/api/lofty/connect/?key=${user.api_key}`;
+    const redirectUrl = `http://127.0.0.1:8000/api/property/connect/?key=${user.api_key}`;
     window.location.href = redirectUrl;
     // try {
     //   const redirectUrl = await getLoftyRedirectUrl();

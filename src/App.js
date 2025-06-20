@@ -37,6 +37,7 @@ import {
 
 // import  CreateInstaBot  from "./pages/user/instaBot/CreateEditInstaBot";
 import { CreateEditInstaBot, InstaBotManagement } from "./pages/user/instaBot";
+import { PropertyManagement } from "./pages/user/property";
 
 import LoftyProperties from "./pages/user/lofty/LoftyProperties";
 
@@ -159,6 +160,11 @@ const App = () => {
                 <Route
                 path={ROUTES.USER.INSTABOT.EDIT_INSTABOT}
                 element={<CreateEditInstaBot />}
+                />
+
+                <Route
+                path={ROUTES.USER.PROPERTY.PROPERTIES}
+                element={<PropertyManagement />}
                 />
 
               <Route

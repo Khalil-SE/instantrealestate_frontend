@@ -58,9 +58,9 @@ const UserLeftSidebar = ({ toggleActive }) => {
             </div>
             <div className="menu-item">
               <Link
-                to={ROUTES.USER.LOFTY_PROPERTIES}
+                to={ROUTES.USER.PROPERTY.PROPERTIES}
                 className={`menu-link ${
-                  pathname === ROUTES.USER.LOFTY_PROPERTIES ? "active" : ""
+                  pathname === ROUTES.USER.PROPERTY.PROPERTIES ? "active" : ""
                 }`}
               >
                 <i className="material-symbols-outlined">Home</i>

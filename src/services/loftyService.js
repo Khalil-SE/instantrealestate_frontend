@@ -4,7 +4,7 @@ import axiosInstance from './axiosInstance';
 
 export const getLoftyRedirectUrl = async () => {
   try {
-    const response = await axiosInstance.get('/lofty/connect/', {
+    const response = await axiosInstance.get(API_ROUTES.BASE_URL + API_ROUTES.USERS.PROPERTY.CONNECT_LOFTY, {
       withCredentials: true,
       maxRedirects: 0,
       validateStatus: (status) => status >= 200 && status < 400, // Handle redirect manually
@@ -18,6 +18,18 @@ export const getLoftyRedirectUrl = async () => {
 };
 
 export const fetchLoftyProperties = async () => {
-  const response = await axiosInstance.get(API_ROUTES.USERS.LOFTY_PROPERTIES);
+  const response = await axiosInstance.get(API_ROUTES.USERS.PROPERTY.LOFTY_PROPERTIES);
+  return response.data;
+};
+
+export const getLoftyProperties = async () => {
+  console.log("Here ---->");
+  
+  const res = await axiosInstance.get(API_ROUTES.BASE_URL + API_ROUTES.USERS.PROPERTY.LOFTY_PROPERTIES);
+  return res.data;
+};
+
+export const markLoftyPropertyImported = async (listingId) => {
+  const response = await axiosInstance.patch( API_ROUTES.BASE_URL + API_ROUTES.USERS.PROPERTY.LOFTY_PROPERTY_IMPORTED(listingId) );
   return response.data;
 };
