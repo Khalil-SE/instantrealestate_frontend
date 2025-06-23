@@ -2,14 +2,14 @@
 
 import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
-import SearchForm from "./SearchForm";
+// import SearchForm from "./SearchForm";
 // import AppsMenu from "./AppsMenu";
 // import ChooseLanguage from "./ChooseLanguage";
-import FullscreenButton from "./FullscreenButton";
+// import FullscreenButton from "./FullscreenButton";
 // import Notifications from "./Notifications";
 import Profile from "./Profile";
-import DarkMode from "./DarkMode";
-import ControlPanel from "../ControlPanel";
+// import DarkMode from "./DarkMode";
+// import ControlPanel from "../ControlPanel";
 import HorizontalNavbar from "./HorizontalNavbar";
 
 
@@ -32,7 +32,7 @@ const UserTopNavbar = ({ toggleActive }) => {
     return (
       <>
         <header
-          className="header-area bg-white mb-4 rounded-bottom-15"
+          className="header-area shadow-sm bg-white mb-4 rounded-bottom-15"
           id="header"
         >
           <div className="container-fluid p-0">
@@ -68,9 +68,9 @@ const UserTopNavbar = ({ toggleActive }) => {
                       </Link>
                     </li>
   
-                    <li>
+                    {/* <li>
                       <SearchForm />
-                    </li>
+                    </li> */}
   
                     {/* <li>
                       <AppsMenu />
@@ -82,17 +82,17 @@ const UserTopNavbar = ({ toggleActive }) => {
               <div className="col-lg-7 col-sm-6">
                 <div className="right-header-content mt-2 mt-sm-0">
                   <ul className="d-flex align-items-center justify-content-center justify-content-sm-end ps-0 mb-0 list-unstyled">
-                    <li className="header-right-item">
+                    {/* <li className="header-right-item">
                       <DarkMode />
-                    </li>
+                    </li> */}
   
                     {/* <li className="header-right-item">
                       <ChooseLanguage />
                     </li> */}
   
-                    <li className="header-right-item">
+                    {/* <li className="header-right-item">
                       <FullscreenButton />
-                    </li>
+                    </li> */}
   
                     {/* <li className="header-right-item">
                       <Notifications />
@@ -107,9 +107,9 @@ const UserTopNavbar = ({ toggleActive }) => {
                         picture={user?.picture} /> */}
                     </li>
   
-                    <li className="header-right-item">
+                    {/* <li className="header-right-item">
                       <ControlPanel />
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>

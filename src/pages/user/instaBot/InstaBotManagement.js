@@ -12,7 +12,7 @@ import { ROUTES } from "../../../config/routes";
 // import { toast } from "react-toastify";
 // import InstaBotFormModal from "../../components/Modal/InstaBotFormModal";
 
-import styles from "./InstaBotTable.module.css";
+// import styles from "./InstaBotTable.module.css";
 
 const InstaBotManagement = () => {
   const navigate = useNavigate();
@@ -111,7 +111,7 @@ const InstaBotManagement = () => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-3 mb-4 position-relative">
+    <div className="shadow-sm bg-white p-4 rounded-4 mb-4 position-relative">
       <div className="mb-4">
         <h4 className="fs-20 mb-1">Your InstaBots</h4>
         <p className="fs-15">Create and manage your social bots here.</p>
@@ -154,7 +154,7 @@ const InstaBotManagement = () => {
           ) : (
             <div className="default-table-area all-products">
               <div className="table-responsive">
-                <Table className={`table align-middle ${styles.gradientTable}`}>
+                <Table >
                   {/* className="table align-middle ${styles.gradientTable}" */}
 
                   <thead>

@@ -4,6 +4,8 @@ import React from "react";
 import { Accordion } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 
+import GradientBackgroundSideBar from "./DesigningBG/GradientBackgroundSideBar";
+
 import { ROUTES } from "../../config/routes";
 
 const AdminLeftSidebar = ({ toggleActive }) => {
@@ -18,7 +20,8 @@ const AdminLeftSidebar = ({ toggleActive }) => {
   return (
     <>
       {/* <div className={`sidebar-area ${isDark ? "dark" : ""}`}> */}
-      <div className={`sidebar-area`}>
+      <div className={`sidebar-area shadow-sm`}>
+        <GradientBackgroundSideBar>
         <div className="logo position-relative">
           <Link
             to="/dashboard/ecommerce"
@@ -121,6 +124,7 @@ const AdminLeftSidebar = ({ toggleActive }) => {
             </div>
           </Accordion>
         </div>
+        </GradientBackgroundSideBar>
       </div>
     </>
   );

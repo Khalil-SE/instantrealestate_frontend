@@ -4,6 +4,10 @@ import React from "react";
 import { Accordion } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { ROUTES } from "../../config/routes";
+// import BackgroundGradient from "./DesigningBG/BackgroundGradient";
+// import GradientBackground from "./DesigningBG/GradientBackground";
+import GradientBackgroundSideBar from "./DesigningBG/GradientBackgroundSideBar";
+
 
 const UserLeftSidebar = ({ toggleActive }) => {
   const location = useLocation(); // Use `useLocation` to get the current path
@@ -16,8 +20,15 @@ const UserLeftSidebar = ({ toggleActive }) => {
 
   return (
     <>
+    
+    
       {/* <div className={`sidebar-area ${isDark ? "dark" : ""}`}> */}
-      <div className={`sidebar-area`} style={{ backgroundColor: "#f8f9fa" }}>
+      {/* background: "radial-gradient(circle,rgb(203, 200, 244),rgba(241, 209, 225, 0.55), #f8f9fa)" */}
+      {/* backgroundColor: "#f8f9fa"  */}
+      <div className={`sidebar-area shadow-sm`} style={{ backgroundColor: "#f8f9fa"      }}>
+        {/* <BackgroundGradient /> */}
+        <GradientBackgroundSideBar >
+        
         <div className="logo position-relative">
           <Link
             to="/dashboard/ecommerce"
@@ -40,6 +51,7 @@ const UserLeftSidebar = ({ toggleActive }) => {
         </div>
 
         <div className="sidebar-menu">
+          {/* <BackgroundGradient /> */}
           <div className="menu-title small text-uppercase">
             <span className="menu-title-text">MAIN</span>
           </div>
@@ -158,7 +170,11 @@ const UserLeftSidebar = ({ toggleActive }) => {
             </div>
           </Accordion>
         </div>
+
+</GradientBackgroundSideBar>
+
       </div>
+      
     </>
   );
 };

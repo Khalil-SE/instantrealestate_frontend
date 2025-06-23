@@ -24,15 +24,23 @@
   left: 20%;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, #00c3ff, #00ffe1);
+  background: radial-gradient(circle, #d8d6f1, #eee4e9);
 }
 
-.blob2 {
+/* .blob2 {
   bottom: 20%;
   right: 15%;
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, #ffcf71, #fbd786);
+  background: radial-gradient(circle, #cbc8f4, #f1d1e1);
+} */
+
+.blob2 {
+  bottom: 20%;
+  right: 0%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #cbc8f4, #f1d1e1);
 }
 
 .blob3 {
@@ -40,5 +48,5 @@
   left: 70%;
   width: 250px;
   height: 250px;
-  background: radial-gradient(circle, #a18cd1, #fbc2eb);
+  background: radial-gradient(circle, #7e03bb79, #bc58ff6d);
 }

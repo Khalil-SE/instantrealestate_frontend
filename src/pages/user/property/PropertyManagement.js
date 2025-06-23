@@ -3,6 +3,8 @@ import { Card, Table, Form, Spinner } from "react-bootstrap";
 import ConfirmModal from "../../../components/Modal/ConfirmModal";
 import { toast } from "react-toastify";
 
+import ToggleButton from "react-toggle-button";
+
 import {
   getAllProperties,
   deleteProperty,
@@ -103,7 +105,7 @@ const PropertyManagement = () => {
       email_recipients: [],
     };
     // console.log(transformed);
-    
+
     setSelectedProperty(transformed);
     setModalMode("add");
     setShowFormModal(true);
@@ -111,7 +113,7 @@ const PropertyManagement = () => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-3 mb-4 position-relative">
+    <div className="shadow-sm bg-white p-4 rounded-4 mb-4 position-relative">
       <div className="mb-4">
         <h4 className="fs-20 mb-1">Your Properties</h4>
         <p className="fs-15">Create and manage your real estate properties.</p>
@@ -184,13 +186,41 @@ const PropertyManagement = () => {
                         <td>{property.address}</td>
                         <td>${property.price}</td>
                         <td>
-                          <Form.Check
+                          <ToggleButton
+                            inactiveLabel={<i class="ri-close-line"></i>}
+                            activeLabel={<i class="ri-check-line"></i>}
+                            value={property.status === "active"}
+                            onToggle={(value) => {
+                              handleToggleStatus(property);
+                              // self.setState({
+                              //   value: !value,
+                              // });
+                            }}
+                            colors={{
+                              activeThumb: {
+                                base: "rgb(250,250,250)",
+                              },
+                              inactiveThumb: {
+                                base: "rgb(62,130,247)",
+                              },
+                              active: {
+                                base: "rgb(62,130,247)",
+                                hover: "rgb(177, 191, 215)",
+                              },
+                              inactive: {
+                                // base: 'rgb(65,66,68)',
+                                base: "rgb(95,96,98)",
+                                hover: "rgb(177, 191, 215)",
+                              },
+                            }}
+                          />
+                          {/* <Form.Check
                             type="switch"
                             id={`toggle-${property.id}`}
                             checked={property.status === "active"}
                             onChange={() => handleToggleStatus(property)}
                             label={property.status}
-                          />
+                          /> */}
                         </td>
                         <td>{property.beds}</td>
                         <td>{property.baths}</td>

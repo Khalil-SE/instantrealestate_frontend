@@ -539,7 +539,7 @@ const UserProfile = () => {
   };
 
   return (
-    <Card className="shadow-lg bg-white border-0 rounded-3 mb-4 ">
+    <Card className="shadow-sm bg-white border-0 rounded-4 mb-4 ">
 
       {isSaving && (
         <div
