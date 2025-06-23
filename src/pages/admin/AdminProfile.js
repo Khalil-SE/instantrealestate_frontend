@@ -225,7 +225,7 @@ const AdminProfile = () => {
   };
 
   return (
-    <Card className="bg-white border-0 rounded-3 mb-4 rounded-top-0">
+    <Card className="bg-white border-0 rounded-4 shadow-sm mb-4 ">
       {isSaving && (
         <div
           className="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"

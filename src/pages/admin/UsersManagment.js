@@ -85,7 +85,7 @@ const UsersManagment = () => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-3 mb-4 position-relative">
+    <div className="bg-white p-4 rounded-4 shadow-sm mb-4 position-relative">
       <div className="mb-4">
         <h4 className="fs-20 mb-1">Users Management</h4>
         <p className="fs-15">You have full control on users here.</p>

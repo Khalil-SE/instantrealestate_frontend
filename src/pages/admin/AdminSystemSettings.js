@@ -172,7 +172,7 @@ const AdminSystemSettings = () => {
   );
 
   return (
-    <div className="bg-white p-4 rounded-3 mb-4 position-relative">
+    <div className="bg-white p-4 rounded-4 shadow-sm mb-4 position-relative">
       {isLoading && (
         <div className="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
           style={{ backgroundColor: "rgba(255, 255, 255, 0.6)", zIndex: 1 }}>
