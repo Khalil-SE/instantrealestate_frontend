@@ -412,7 +412,8 @@ const handleSubmit = async (e) => {
             <Form.Group className="position-relative">
               <Form.Select
                 // className="form-control ps-5 h-55"
-                className="form-control h-55"
+                className="form-control h-55 rounded-4 border-3"
+                style={{ fontSize: "1rem" }}
                 value={formData.message_type}
                 onChange={(e) => handleChange("message_type", e.target.value)}
               >

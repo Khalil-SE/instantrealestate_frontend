@@ -42,7 +42,8 @@ const KeywordInput = ({
         <Form.Control
           type="text"
           // className="text-dark ps-5 h-55"
-          className="text-dark h-55"
+          className="text-dark h-55 rounded-4 border-3"
+          style={{ fontSize: "1rem" }}
           placeholder="Keyword"
           value={value}
           onChange={(e) => onChange(e.target.value)}
