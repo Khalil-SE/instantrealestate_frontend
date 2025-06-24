@@ -20,7 +20,8 @@ const PublicReplySelector = ({
       <div className="d-flex justify-content-between align-items-center">
         <Form.Group className="position-relative flex-grow-1 me-3">
           <Form.Select
-            className="form-control ps-5 h-55"
+          // className="form-control ps-5 h-55"
+            className="form-control h-55"
             value={selectedTemplateId}
             onChange={(e) => onChange(e.target.value)}
           >
@@ -31,7 +32,7 @@ const PublicReplySelector = ({
               </option>
             ))}
           </Form.Select>
-          <i className="ri-list-ordered position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+          {/* <i className="ri-list-ordered position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i> */}
         </Form.Group>
         <div className="d-flex align-items-center gap-1">
           <button type="button" className="bg-transparent border-0" onClick={onView}>

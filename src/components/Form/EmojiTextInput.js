@@ -134,7 +134,8 @@ const EmojiTextInput = ({
         {type === "textarea" ? (
           <Form.Control
             as="textarea"
-            className="form-control ps-5 text-dark"
+            // className="form-control ps-5 text-dark"
+            className="form-control text-dark"
             placeholder={placeholder}
             rows={4}
             ref={inputRef}
@@ -145,7 +146,8 @@ const EmojiTextInput = ({
         ) : (
           <Form.Control
             type={type}
-            className="text-dark ps-5 h-55"
+            // className="text-dark ps-5 h-55"
+            className="text-dark h-55"
             ref={inputRef}
             value={value}
             onChange={(e) => onChange(e.target.value)}
@@ -153,7 +155,7 @@ const EmojiTextInput = ({
             disabled={disabled}
           />
         )}
-        <i className="ri-user-line position-absolute top-0 start-0  fs-20 ps-20" style={{marginTop:'11px'}} />
+        {/* <i className="ri-user-line position-absolute top-0 start-0  fs-20 ps-20" style={{marginTop:'11px'}} /> */}
         <Button
           onClick={() => setShowPicker(!showPicker)}
           className="position-absolute top-0 end-0 translate-middle-y bg-transparent p-0 pe-3 border-0"

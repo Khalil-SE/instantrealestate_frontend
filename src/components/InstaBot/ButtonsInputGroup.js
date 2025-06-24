@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, Button, Form } from "react-bootstrap";
-import EmojiTextInput from "./EmojiTextInput";
+import EmojiTextInput from "../Form/EmojiTextInput";
 
 const ButtonsInputGroup = ({
   buttons = [],
@@ -69,12 +69,13 @@ const ButtonsInputGroup = ({
               <Form.Group className="position-relative">
                 <Form.Control
                   type="text"
-                  className="text-dark ps-5 h-55"
+                  // className="text-dark ps-5 h-55"
+                  className="text-dark h-55"
                   placeholder="Destination Url"
                   value={btn.url}
                   onChange={(e) => handleChange(idx, "url", e.target.value)}
                 />
-                <i className="ri-link position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+                {/* <i className="ri-link position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i> */}
               </Form.Group>
             </Form.Group>
             </div>

@@ -41,12 +41,13 @@ const KeywordInput = ({
       <Form.Group className="position-relative">
         <Form.Control
           type="text"
-          className="text-dark ps-5 h-55"
+          // className="text-dark ps-5 h-55"
+          className="text-dark h-55"
           placeholder="Keyword"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
-        <i className="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+        {/* <i className="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i> */}
         <span className="position-absolute top-50 end-0 translate-middle-y pe-3">
           {loading ? (
             <Spinner animation="border" size="sm" />

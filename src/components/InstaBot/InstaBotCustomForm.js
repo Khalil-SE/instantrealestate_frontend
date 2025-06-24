@@ -411,7 +411,8 @@ const handleSubmit = async (e) => {
               </label>
             <Form.Group className="position-relative">
               <Form.Select
-                className="form-control ps-5 h-55"
+                // className="form-control ps-5 h-55"
+                className="form-control h-55"
                 value={formData.message_type}
                 onChange={(e) => handleChange("message_type", e.target.value)}
               >
@@ -422,7 +423,7 @@ const handleSubmit = async (e) => {
                   With Image
                 </option>
               </Form.Select>
-              <i className="ri-list-ordered position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
+              {/* <i className="ri-list-ordered position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i> */}
             </Form.Group>
           </Form.Group>
         </Col>
@@ -498,7 +499,7 @@ const handleSubmit = async (e) => {
           setEmailInput={setEmailInput}
         />
 
-        <Form.Group className="mb-4">
+        {/* <Form.Group className="mb-4">
           <label className="label text-secondary">Status</label>
           <Form.Group className="position-relative">
             <Form.Select
@@ -515,7 +516,7 @@ const handleSubmit = async (e) => {
             </Form.Select>
             <i className="ri-list-ordered position-absolute top-50 start-0 translate-middle-y fs-20 ps-20"></i>
           </Form.Group>
-        </Form.Group>
+        </Form.Group> */}
 
         <Col lg={12} className="d-flex">
         
