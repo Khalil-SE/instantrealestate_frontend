@@ -14,11 +14,11 @@ const ImageUploader = ({ setImage, disabled = false }) => {
     <div className="form-group mb-4">
       <label className="label">
         <h6 >Image Upload</h6></label>
-      <div className="form-control h-100 text-center position-relative p-4 p-lg-5">
+      <div className="form-control h-100 text-center position-relative p-4 p-lg-5 rounded-4 border-3">
         <div className="product-upload">
           <label htmlFor="file-upload" className="file-upload mb-0">
-            <i className="ri-folder-image-line bg-primary bg-opacity-10 p-2 rounded-1 text-primary"></i>
-            <span className="d-block text-body fs-14">
+            <i className="ri-folder-image-line fs-4 bg-primary bg-opacity-10 p-2 rounded-1 text-primary"></i>
+            <span className="d-block text-body fs-4">
               Drag and drop an image or{" "}
               <span className="text-primary text-decoration-underline">Browse</span>
             </span>
