@@ -9,6 +9,9 @@ import {
 import ConfirmModal from "../../../components/Modal/ConfirmModal";
 import { toast } from "react-toastify";
 import { ROUTES } from "../../../config/routes";
+
+import ToggleButton from "react-toggle-button";
+
 // import { toast } from "react-toastify";
 // import InstaBotFormModal from "../../components/Modal/InstaBotFormModal";
 
@@ -185,14 +188,42 @@ const InstaBotManagement = () => {
                         </td>
                         <td>{bot.message_type}</td>
                         <td>
-                          <Form.Check
+                          <ToggleButton
+                            inactiveLabel={<i class="ri-close-line"></i>}
+                            activeLabel={<i class="ri-check-line"></i>}
+                            value={ bot.status === "active" }
+                            onToggle={(value) => {
+                              handleToggleStatus(bot);
+                              // self.setState({
+                              //   value: !value,
+                              // });
+                            }}
+                            colors={{
+                              activeThumb: {
+                                base: "rgb(250,250,250)",
+                              },
+                              inactiveThumb: {
+                                base: "rgb(62,130,247)",
+                              },
+                              active: {
+                                base: "rgb(62,130,247)",
+                                hover: "rgb(177, 191, 215)",
+                              },
+                              inactive: {
+                                // base: 'rgb(65,66,68)',
+                                base: "rgb(95,96,98)",
+                                hover: "rgb(177, 191, 215)",
+                              },
+                            }}
+                          />
+                          {/* <Form.Check
                             type="switch"
                             id={`instabot-toggle-${bot.id}`}
                             checked={bot.status === "active"}
                             onChange={() => handleToggleStatus(bot)}
                             className="ms-2"
                             label=""
-                          />
+                          /> */}
                         </td>
                         <td>
                           <div className="d-flex align-items-center gap-1">
