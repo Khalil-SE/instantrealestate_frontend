@@ -135,7 +135,8 @@ const EmojiTextInput = ({
           <Form.Control
             as="textarea"
             // className="form-control ps-5 text-dark"
-            className="form-control text-dark"
+            className="form-control text-dark rounded-4 border-3"
+            style={{ fontSize: "1rem" }}
             placeholder={placeholder}
             rows={4}
             ref={inputRef}
@@ -147,7 +148,8 @@ const EmojiTextInput = ({
           <Form.Control
             type={type}
             // className="text-dark ps-5 h-55"
-            className="text-dark h-55"
+            className="text-dark h-55 rounded-4 border-3"
+            style={{ fontSize: "1rem" }}
             ref={inputRef}
             value={value}
             onChange={(e) => onChange(e.target.value)}
