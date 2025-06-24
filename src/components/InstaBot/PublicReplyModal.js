@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Spinner, Row, Col } from "react-bootstrap";
 import { RxCrossCircled } from "react-icons/rx";
-import EmojiTextInput from "./EmojiTextInput";
+import EmojiTextInput from "../Form/EmojiTextInput";
 
 const PublicReplyModal = ({
   show,
