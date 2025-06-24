@@ -53,9 +53,9 @@ const KeywordInput = ({
           {loading ? (
             <Spinner animation="border" size="sm" />
           ) : isAvailable === true ? (
-            <FaCheckCircle className="text-success fs-5" />
+            <FaCheckCircle className="text-success fs-4" />
           ) : isAvailable === false ? (
-            <FaTimesCircle className="text-danger fs-5" />
+            <FaTimesCircle className="text-danger fs-4" />
           ) : null}
         </span>
         {isAvailable === false && (

@@ -21,7 +21,8 @@ const PublicReplySelector = ({
         <Form.Group className="position-relative flex-grow-1 me-3">
           <Form.Select
           // className="form-control ps-5 h-55"
-            className="form-control h-55"
+            className="form-control h-55 rounded-4 border-3"
+            style={{ fontSize: "1rem" }}
             value={selectedTemplateId}
             onChange={(e) => onChange(e.target.value)}
           >
@@ -36,13 +37,13 @@ const PublicReplySelector = ({
         </Form.Group>
         <div className="d-flex align-items-center gap-1">
           <button type="button" className="bg-transparent border-0" onClick={onView}>
-            <span className="material-symbols-outlined fs-16 text-primary">add</span>
+            <span className="material-symbols-outlined fs-4 text-primary">add</span>
           </button>
           <button type="button" className="bg-transparent border-0" onClick={onEdit}>
-            <span className="material-symbols-outlined fs-16 text-body">edit</span>
+            <span className="material-symbols-outlined fs-4 text-body">edit</span>
           </button>
           <button type="button" className="bg-transparent border-0" onClick={onDelete}>
-            <span className="material-symbols-outlined fs-16 text-danger">delete</span>
+            <span className="material-symbols-outlined fs-4 text-danger">delete</span>
           </button>
         </div>
       </div>

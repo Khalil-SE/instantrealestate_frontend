@@ -37,7 +37,7 @@ const ButtonsInputGroup = ({
         </Button>
       </div>
 
- <Card className="p-4 mt-3" style={{ backgroundColor: "#ffffff" }} >
+ <Card className="p-4 mt-3 rounded-4 border-3" style={{ backgroundColor: "#ffffff" }} >
            <Card.Body >
       {buttons.map((btn, idx) => (
         
@@ -52,7 +52,7 @@ const ButtonsInputGroup = ({
                 className="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
                 onClick={() => handleRemoveButton(idx)}
               >
-                <span className="material-symbols-outlined fs-16 text-danger">delete</span>
+                <span className="material-symbols-outlined fs-4 text-danger">delete</span>
               </button>
             </div>
 
@@ -70,7 +70,8 @@ const ButtonsInputGroup = ({
                 <Form.Control
                   type="text"
                   // className="text-dark ps-5 h-55"
-                  className="text-dark h-55"
+                  className="text-dark h-55 rounded-4 border-3"
+                  style={{ fontSize: "1rem" }}
                   placeholder="Destination Url"
                   value={btn.url}
                   onChange={(e) => handleChange(idx, "url", e.target.value)}

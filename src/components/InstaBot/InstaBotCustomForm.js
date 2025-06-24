@@ -398,7 +398,7 @@ const handleSubmit = async (e) => {
 
   return (
     <Container
-      className="mt-4"
+      className="mt-4 pb-4"
       // style={{ maxHeight: "80vh", overflowY: "auto" }}
     >
       <Form onSubmit={handleSubmit}>
@@ -521,7 +521,10 @@ const handleSubmit = async (e) => {
 
         <Col lg={12} className="d-flex">
         
-          <Button type="submit" className="btn btn-primary w-100 fw-semibold">
+          <Button type="submit" 
+          className="btn btn-primary fs-4 p-2 rounded-4  w-100 fw-semibold"
+          // style={{background: `radial-gradient(circle, rgb(0, 128, 255), transparent 0%)`}}
+          >
             {isEditMode ? "Update InstaBot" : "Create InstaBot"}
           </Button>
         </Col>

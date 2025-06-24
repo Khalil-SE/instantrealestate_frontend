@@ -32,12 +32,13 @@ const EmailInputList = ({
         </h6>
         </label>
       <div
-        className="form-control d-flex flex-wrap align-items-center"
-        style={{ minHeight: 55, maxHeight: 120, overflowY: "auto", gap: 4 }}
+        className="form-control d-flex flex-wrap align-items-center rounded-4 border-3"
+        style={{ minHeight: 80, maxHeight: 120, overflowY: "auto", gap: 4, fontSize: "1rem" }}
       >
         {emails.map((email, idx) => (
           <span key={idx} className="badge bg-primary me-2 mb-1">
-            <span className="text-light" >
+            <span className="text-white"
+            style={{fontSize: "1rem"}} >
             {email}
             </span>
             <button

@@ -55,15 +55,15 @@ const DMMessageScreen = ({ formData = {}, buttons = [] }) => {
                 )}
 
                 {/* Message Text */}
-                <h6 className="mb-1 fs-6 fw-bold">{title}</h6>
-                <p className="mb-2 fs-7">{message}</p>
+                <h6 className="mb-1 fs-6 fw-bold text-break">{title}</h6>
+                <p className="mb-2 fs-7 text-break">{message}</p>
 
                 {/* Action Buttons */}
                 <div className="d-grid gap-1 mb-2">
                   {buttons.length > 0
                     ? buttons.map((btn, idx) => (
                       
-                        <Button key={idx} variant="light" size="sm" className="text-start">
+                        <Button key={idx} variant="light" size="sm" className="text-start text-break">
                           {btn.text || `Button ${idx + 1}`}
                         </Button>
 
