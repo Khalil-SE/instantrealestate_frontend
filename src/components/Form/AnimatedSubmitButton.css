@@ -1,0 +1,12 @@
+.gradient-button {
+  background: linear-gradient(to right, #4f46e5, #9333ea); /* from-indigo-600 to-purple-600 */
+  color: white;
+  border: none;
+  transition: opacity 0.5s ease-in-out, background 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.gradient-button:hover {
+  background: linear-gradient(to right, #4338ca, #7e22ce); /* hover darker */
+  opacity: 0.9;
+}

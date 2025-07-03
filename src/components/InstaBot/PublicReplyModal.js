@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Spinner, Row, Col } from "react-bootstrap";
-import { RxCrossCircled } from "react-icons/rx";
-import EmojiTextInput from "../Form/EmojiTextInput";
+// import { RxCrossCircled } from "react-icons/rx";
+import EmojiTextInput from "./EmojiTextInput";
 
 const PublicReplyModal = ({
   show,
@@ -67,23 +67,25 @@ const PublicReplyModal = ({
 
               {replies.length > 1 && (
                 <Button
-                  size="sm"
+                  // size="sm"
                   // variant="outline-danger"
+                  variant="link"
                   onClick={() => handleRemoveReply(idx)}
-                  className="  position-absolute rounded-circle d-flex justify-content-center align-items-center"
+                  className="text-danger border-0 position-absolute"
                   // style={{ top: '8px', right: '8px', zIndex: 2 }}
                   style={{
-                    top: "8px",
+                    top: "-4px",
                     right: "8px",
                     width: "25px",
                     height: "25px",
                     borderRadius: "50%",
-                    borderBlockColor: "#fe7a36",
-                    backgroundColor: "#fe7a36",
+                    // borderBlockColor: "#fe7a36",
+                    // backgroundColor: "#fe7a36",
                     padding: 0,
                   }}
                 >
-                  <RxCrossCircled fontSize={20} color="#ffffff" fontWeight={20}/>
+                  {/* <RxCrossCircled fontSize={20} color="#ffffff" fontWeight={20}/> */}
+                  <span className="material-symbols-outlined fs-4">delete</span>
                   {/* <i className="ri-add-line"></i>
                 Remove */}
                 </Button>

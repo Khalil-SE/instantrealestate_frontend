@@ -222,7 +222,7 @@
 
 // export default SignUpForm;
 
-"use client";
+"SignUpForm.js";
 
 import { Row, Col, Form, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";

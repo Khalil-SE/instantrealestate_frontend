@@ -8,7 +8,6 @@ import { ROUTES } from "../../config/routes";
 // import GradientBackground from "./DesigningBG/GradientBackground";
 import GradientBackgroundSideBar from "./DesigningBG/GradientBackgroundSideBar";
 
-
 const UserLeftSidebar = ({ toggleActive }) => {
   const location = useLocation(); // Use `useLocation` to get the current path
   const pathname = location.pathname; // Extract `pathname` from location
@@ -20,15 +19,17 @@ const UserLeftSidebar = ({ toggleActive }) => {
 
   return (
     <>
-    
-    
       {/* <div className={`sidebar-area ${isDark ? "dark" : ""}`}> */}
       {/* background: "radial-gradient(circle,rgb(203, 200, 244),rgba(241, 209, 225, 0.55), #f8f9fa)" */}
       {/* backgroundColor: "#f8f9fa"  */}
-      <div className={`sidebar-area shadow-sm`} style={{ backgroundColor: "#f8f9fa"      }}>
+      <div
+        className={`sidebar-area shadow-sm`}
+        style={{ backgroundColor: "#ffffff" }}
+        // style={{ backgroundColor: "#f8f9fa" }}
+      >
         {/* <BackgroundGradient /> */}
         <GradientBackgroundSideBar >
-        
+
         <div className="logo position-relative">
           <Link
             to="/dashboard/ecommerce"
@@ -80,7 +81,6 @@ const UserLeftSidebar = ({ toggleActive }) => {
               </Link>
             </div>
 
-
             <div className="menu-item">
               <Link
                 to={ROUTES.USER.INSTABOT.INSTABOTS}
@@ -122,8 +122,9 @@ const UserLeftSidebar = ({ toggleActive }) => {
                         pathname === ROUTES.USER.SUBSCRIPTION ? "active" : ""
                       }`}
                     >
-                      
-                      <i className="material-symbols-outlined">credit_card_heart</i>
+                      <i className="material-symbols-outlined">
+                        credit_card_heart
+                      </i>
                       <span className="title">Subscription</span>
                     </Link>
                   </li>
@@ -171,10 +172,8 @@ const UserLeftSidebar = ({ toggleActive }) => {
           </Accordion>
         </div>
 
-</GradientBackgroundSideBar>
-
+        </GradientBackgroundSideBar>
       </div>
-      
     </>
   );
 };

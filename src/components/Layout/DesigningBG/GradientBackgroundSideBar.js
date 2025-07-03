@@ -37,10 +37,10 @@ const GradientBackgroundSideBar = ({ children }) => {
         style={{
           position: 'absolute',
           top: `10%`,
-          left: `0%`,
+          left: `-100%`,
           width: `516px`,
           height: `516px`,
-          background: `radial-gradient(circle, rgba(0, 128, 255, 0.06), transparent 70%)`,
+          background: `radial-gradient(circle, rgba(0, 128, 255, 0.16), transparent 70%)`,
           pointerEvents: 'none',
           zIndex: 0,
         }}
@@ -49,10 +49,10 @@ const GradientBackgroundSideBar = ({ children }) => {
         style={{
           position: 'absolute',
           top: `30%`,
-          left: `0%`,
+          left: `-50%`,
           width: `516px`,
           height: `516px`,
-          background: `radial-gradient(circle, rgba(255, 0, 128, 0.06), transparent 70%)`,
+          background: `radial-gradient(circle, rgba(255, 0, 128, 0.16), transparent 70%)`,
           pointerEvents: 'none',
           zIndex: 0,
         }}
@@ -64,7 +64,7 @@ const GradientBackgroundSideBar = ({ children }) => {
           left: `20%`,
           width: `516px`,
           height: `516px`,
-          background: `radial-gradient(circle, rgba(172, 6, 255, 0.06), transparent 70%)`,
+          background: `radial-gradient(circle, rgba(172, 6, 255, 0.16), transparent 70%)`,
           pointerEvents: 'none',
           zIndex: 0,
         }}

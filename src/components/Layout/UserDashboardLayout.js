@@ -7,7 +7,8 @@ import ScrollToTop from "./ScrollToTop";
 import Footer from "./Footer";
 
 
-import BackgroundGradient from "./DesigningBG/BackgroundGradient";
+// import BackgroundGradient from "./DesigningBG/BackgroundGradient";
+import BgStyles from "../Layout/DesigningBG/BgGradiants.module.css"
 
 const UserDashboardLayout = () => {
   const [active, setActive] = useState(false);
@@ -44,13 +45,16 @@ const UserDashboardLayout = () => {
           <UserLeftSidebar toggleActive={toggleActive} />
            
 
-          <div className="main-content d-flex flex-column">
+          <div 
+          className={`main-content d-flex flex-column ${BgStyles.premium_light_gradient}`}
+          // className="main-content d-flex flex-column"
+          >
             <ScrollToTop />
 
             
             <UserTopNavbar toggleActive={toggleActive} />
               
-              <BackgroundGradient />
+              {/* <BackgroundGradient /> */}
 
             <Outlet />
 

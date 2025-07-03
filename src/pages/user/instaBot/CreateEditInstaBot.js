@@ -141,7 +141,6 @@
 
 // export default CreateInstaBot;
 
-
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import InstaBotCustomForm from "../../../components/InstaBot/InstaBotCustomForm";
@@ -152,15 +151,16 @@ import { ROUTES } from "../../../config/routes";
 
 import styles from "./DMMessageScreen.module.css"; // Adjust the import path as needed
 
+import RocketAnimation from "../../../components/RocketAnimation/RocketAnimation";
+
+
 const CreateEditInstaBot = () => {
-  
-  const { id } = useParams();  // id from /edit/:id
+  const { id } = useParams(); // id from /edit/:id
   const navigate = useNavigate();
   const instabotId = id || null;
   const [currentInstaBot, setCurrentInstaBot] = useState(null);
-  
 
-
+  const [isAnimating, setIsAnimating] = useState(true);
   const [formData, setFormData] = useState({
     keyword: "",
     message_type: "",
@@ -189,123 +189,145 @@ const CreateEditInstaBot = () => {
   //       console.error("Failed to load data", error);
   //     }
   //   };
-  
+
   //   loadData();
   // }, [instabotId]); // Runs only when instabotId changes (or once if null)
 
-   const fetchBotData = useCallback(async () => {
-  try {
-    const data = await getInstaBotById(instabotId);
-    console.log(data);
+  const fetchBotData = useCallback(async () => {
+    try {
+      const data = await getInstaBotById(instabotId);
+      console.log(data);
 
-    setFormData({
-      keyword: data.keyword?.text || "",
-      message_type: data.message_type,
-      image: null,
-      title: data.title,
-      message: data.message,
-      ai_post_description: data.ai_post_description,
-      public_reply_template_id: data.public_reply_template?.id || "",
-      status: data.status || "active",
-    });
+      setFormData({
+        keyword: data.keyword?.text || "",
+        message_type: data.message_type,
+        image: null,
+        title: data.title,
+        message: data.message,
+        ai_post_description: data.ai_post_description,
+        public_reply_template_id: data.public_reply_template?.id || "",
+        status: data.status || "active",
+      });
 
-    let buttonArray = [];
-    if (data.button1_text !== "") {
-      buttonArray.push({ text: data.button1_text, url: data.button1_url });
+      let buttonArray = [];
+      if (data.button1_text !== "") {
+        buttonArray.push({ text: data.button1_text, url: data.button1_url });
+      }
+      if (data.button2_text !== "") {
+        buttonArray.push({ text: data.button2_text, url: data.button2_url });
+      }
+      if (data.button3_text !== "") {
+        buttonArray.push({ text: data.button3_text, url: data.button3_url });
+      }
+
+      setButtons(buttonArray);
+      setEmails(data.email_recipients || []);
+      setCurrentInstaBot(data);
+    } catch (err) {
+      console.error("Failed to fetch bot data", err);
     }
-    if (data.button2_text !== "") {
-      buttonArray.push({ text: data.button2_text, url: data.button2_url });
-    }
-    if (data.button3_text !== "") {
-      buttonArray.push({ text: data.button3_text, url: data.button3_url });
-    }
-
-    setButtons(buttonArray);
-    setEmails(data.email_recipients || []);
-    setCurrentInstaBot(data);
-  } catch (err) {
-    console.error("Failed to fetch bot data", err);
-  }
-}, [instabotId]); // Make sure this depends only on what it uses
-
+  }, [instabotId]); // Make sure this depends only on what it uses
 
   useEffect(() => {
-  const loadData = async () => {
-    try {
-      if (isEditMode && instabotId) {
-        await fetchBotData();
+    const loadData = async () => {
+      try {
+        if (isEditMode && instabotId) {
+          await fetchBotData();
+        }
+      } catch (error) {
+        console.error("Failed to load data", error);
       }
-    } catch (error) {
-      console.error("Failed to load data", error);
-    }
-  };
+    };
 
-  loadData();
-}, [isEditMode, instabotId, fetchBotData]); //  Clean and complete
+    loadData();
+  }, [isEditMode, instabotId, fetchBotData]); //  Clean and complete
 
- 
-    // const fetchBotData = async () => {
-    //   try {
-    //     const data = await getInstaBotById(instabotId);
-    //     console.log(data);
-        
-    //     setFormData({
-    //       keyword: data.keyword?.text || "",
-    //       message_type: data.message_type,
-    //       image: null,
-    //       title: data.title,
-    //       message: data.message,
-    //       ai_post_description: data.ai_post_description,
-    //       // public_reply_template_id: data.public_reply_template_id || "",
-    //       public_reply_template_id: data.public_reply_template.id || "",
-    //       status: data.status || "active",
-    //     });
-    //     let buttonArray = [];
-    //     if (data.button1_text !== "") {
-    //       buttonArray = [...buttonArray,
-    //         { text: data.button1_text || "", url: data.button1_url || "" }
-    //       ];
-    //     }
-    //     if (data.button2_text !== "") {
-    //       buttonArray = [...buttonArray,
-    //         { text: data.button2_text || "", url: data.button2_url || "" }
-    //       ];
-    //     }
-    //     if (data.button3_text !== "") {
-    //       buttonArray = [...buttonArray,
-    //         { text: data.button3_text || "", url: data.button3_url || "" }
-    //       ];
-    //     }
-    //     setButtons(buttonArray);
-    //     // setButtons([
-    //     //   { text: data.button1_text || "", url: data.button1_url || "" },
-    //     //   { text: data.button2_text || "", url: data.button2_url || "" },
-    //     //   { text: data.button3_text || "", url: data.button3_url || "" },
-    //     // ]);
-    //     setEmails(data.recipients || []);
+  // const fetchBotData = async () => {
+  //   try {
+  //     const data = await getInstaBotById(instabotId);
+  //     console.log(data);
 
-    //     setCurrentInstaBot(data);
+  //     setFormData({
+  //       keyword: data.keyword?.text || "",
+  //       message_type: data.message_type,
+  //       image: null,
+  //       title: data.title,
+  //       message: data.message,
+  //       ai_post_description: data.ai_post_description,
+  //       // public_reply_template_id: data.public_reply_template_id || "",
+  //       public_reply_template_id: data.public_reply_template.id || "",
+  //       status: data.status || "active",
+  //     });
+  //     let buttonArray = [];
+  //     if (data.button1_text !== "") {
+  //       buttonArray = [...buttonArray,
+  //         { text: data.button1_text || "", url: data.button1_url || "" }
+  //       ];
+  //     }
+  //     if (data.button2_text !== "") {
+  //       buttonArray = [...buttonArray,
+  //         { text: data.button2_text || "", url: data.button2_url || "" }
+  //       ];
+  //     }
+  //     if (data.button3_text !== "") {
+  //       buttonArray = [...buttonArray,
+  //         { text: data.button3_text || "", url: data.button3_url || "" }
+  //       ];
+  //     }
+  //     setButtons(buttonArray);
+  //     // setButtons([
+  //     //   { text: data.button1_text || "", url: data.button1_url || "" },
+  //     //   { text: data.button2_text || "", url: data.button2_url || "" },
+  //     //   { text: data.button3_text || "", url: data.button3_url || "" },
+  //     // ]);
+  //     setEmails(data.recipients || []);
 
-    //   } catch (err) {
-    //     console.error("Failed to fetch bot data", err);
-    //   }
-    // };
+  //     setCurrentInstaBot(data);
 
-
+  //   } catch (err) {
+  //     console.error("Failed to fetch bot data", err);
+  //   }
+  // };
 
   return (
     <Container fluid className="mt-4">
       <Row className="mb-4">
         <Col lg={10}>
           <div className="mb-4">
-        <h4 className="fs-20 mb-1"> {isEditMode? "Update": "Create"}  InstaBots</h4>
-        <p className="fs-15">You can see the live preview of your InstaBot.</p>
-      </div>
+            
+
+            
+            <h4
+              className="fs-30 mb-1"
+              style={{
+                background: "linear-gradient(to right, #4f46e5, #9333ea)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text", // for Firefox
+                display: "inline-block", // Ensures the text behaves as an inline-block element
+              }}
+            >
+              {isEditMode ? "Update" : "Create"} Social Media Automation
+            </h4>
+
+            <p className="fs-15">
+              Create and automate your social media responses
+            </p>
+          </div>
         </Col>
         <Col lg={2} className="text-end">
-          <button className="btn btn-secondary" onClick={() => navigate(ROUTES.USER.INSTABOT.INSTABOTS)}>Back to InstaBots</button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => navigate(ROUTES.USER.INSTABOT.INSTABOTS)}
+          >
+            Back to InstaBots
+          </button>
         </Col>
       </Row>
+
+      {/* Rocket Animation */}
+      <RocketAnimation isAnimating={isAnimating} />
+
       <Row>
         <Col md={6}>
           <InstaBotCustomForm
@@ -322,14 +344,11 @@ const CreateEditInstaBot = () => {
           />
         </Col>
         <Col md={6} className="d-flex justify-content-center align-items-start">
-<div className={styles.previewWrapper}>
-    <div className={styles.stickyPreview}>
-          <DMMessageScreen
-            formData={formData}
-            buttons={buttons}
-          />
+          <div className={styles.previewWrapper}>
+            <div className={styles.stickyPreview}>
+              <DMMessageScreen formData={formData} buttons={buttons} />
+            </div>
           </div>
-          </div> 
         </Col>
       </Row>
     </Container>

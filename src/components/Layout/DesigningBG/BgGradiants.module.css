@@ -1,0 +1,12 @@
+.premium_gradient {
+  background: linear-gradient(135deg, 
+    #0f0f23 0%,
+    #1a1a2e 25%, 
+    #16213e 50%, 
+    #0f3460 75%, 
+    #0e4b99 100%);
+}
+
+.premium_light_gradient{
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8ecff 50%, #ddd9ff 100%);
+}
