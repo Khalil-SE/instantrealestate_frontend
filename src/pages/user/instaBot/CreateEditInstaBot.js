@@ -240,6 +240,13 @@ const CreateEditInstaBot = () => {
     };
 
     loadData();
+
+
+
+
+    setIsAnimating(true);
+
+
   }, [isEditMode, instabotId, fetchBotData]); //  Clean and complete
 
   // const fetchBotData = async () => {
