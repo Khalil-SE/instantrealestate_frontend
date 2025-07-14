@@ -1,3 +1,4 @@
+// services/subscriptionService.js
 import axiosInstance from './axiosInstance';
 import API_ROUTES from '../config/apiRoutes';
 
@@ -23,6 +24,25 @@ export const cancelSubscription = async () => {
   return res.data;
 };
 
+export const schedulePlanChange = async (planId) => {
+  const res = await axiosInstance.post(API_ROUTES.USERS.SUBSCRIPTIONS.SCHEDULE_PLAN_CHANGE, {
+    plan_id: planId,
+  });
+  return res.data;
+}
+
+export const resumeSubscription = async () => {
+  const res = await axiosInstance.post(API_ROUTES.USERS.SUBSCRIPTIONS.RESUME);
+  return res.data;
+};
+export const startSubscription = async (email, planId) => {
+  const res = await axiosInstance.post(API_ROUTES.USERS.SUBSCRIPTIONS.START, {
+    email,
+    plan_id: planId,
+  });
+  return res.data; // { client_secret, customer_id, subscription_id }
+};
+
 export const openBillingPortal = async () => {
   const response = await axiosInstance.post(API_ROUTES.USERS.SUBSCRIPTIONS.OPEN_BILLING_PORTAL);
   if (response.data?.url) {
@@ -30,14 +50,14 @@ export const openBillingPortal = async () => {
   }
 };
 
-export async function createCheckoutSession(planId) {
-  try {
-    const response = await axiosInstance.post(API_ROUTES.USERS.SUBSCRIPTIONS.SESSION_CHECKOUT, {
-      plan_id: planId,
-    });
-    return response.data; // contains { checkout_url: ... }
-  } catch (error) {
-    console.error("Failed to create checkout session:", error);
-    throw error;
-  }
-}
+// export async function createCheckoutSession(planId) {
+//   try {
+//     const response = await axiosInstance.post(API_ROUTES.USERS.SUBSCRIPTIONS.SESSION_CHECKOUT, {
+//       plan_id: planId,
+//     });
+//     return response.data; // contains { checkout_url: ... }
+//   } catch (error) {
+//     console.error("Failed to create checkout session:", error);
+//     throw error;
+//   }
+// }

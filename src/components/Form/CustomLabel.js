@@ -5,7 +5,8 @@ const CustomLabel = ({text="Label"}) => {
     <label
     className="mb-2"
       style={{
-        // fontSize: "0.875rem",
+        fontSize: "1.125rem",
+        // fontSize: "20px",
         fontWeight: 500,
         // marginBottom: "0.5rem",
         background: "linear-gradient(to right, #4f46e5, #9333ea)",

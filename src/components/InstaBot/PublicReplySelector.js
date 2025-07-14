@@ -1,4 +1,4 @@
-// components/Form/PublicReplySelector.js
+// src/components/InstaBot/PublicReplySelector.js
 import React from "react";
 import { Form } from "react-bootstrap";
 // import { Button } from "react-bootstrap";

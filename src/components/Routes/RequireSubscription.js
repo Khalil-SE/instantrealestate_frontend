@@ -69,9 +69,9 @@ function RequireSubscription() {
   //   return <Navigate to={ROUTES.USER.SUBSCRIPTION} replace />;
   // }
 
-  const invalid =
-    !subscription.has_subscription ||
-    ["incomplete", "canceled"].includes(subscription.status);
+  const invalid = !subscription.is_active;
+    // !subscription.has_subscription ||
+    // ["incomplete", "canceled"].includes(subscription.status);
 
   if (invalid) {
     return <Navigate to={ROUTES.USER.SUBSCRIPTION} replace />;

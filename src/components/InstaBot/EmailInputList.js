@@ -1,3 +1,4 @@
+// src/components/InstaBot/EmailInputList.js
 import React, { useState } from "react";
 // import { X } from "lucide-react";
 import { RxCross2 } from "react-icons/rx";

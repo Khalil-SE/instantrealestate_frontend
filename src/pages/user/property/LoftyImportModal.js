@@ -64,8 +64,8 @@ const LoftyImportModal = ({ show, onClose, onImport }) => {
                     <tr key={item.id}>
                       <td>{item.address}</td>
                       <td>${item.price}</td>
-                      <td>{item.beds}</td>
-                      <td>{item.baths}</td>
+                      <td>{item.beds > 0 ? item.beds : "N/A"}</td>
+                      <td>{item.baths > 0 ? item.baths : "N/A"}</td>
                       <td>
                         {item.is_selected ? (
                           <span className="text-success">Imported</span>

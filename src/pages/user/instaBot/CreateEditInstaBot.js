@@ -141,6 +141,11 @@
 
 // export default CreateInstaBot;
 
+// src/pages/user/instaBot/CreateEditInstaBot.js
+// This file is responsible for creating or editing an Instagram bot.
+// It includes a form for inputting bot details and a preview of the DM message.
+// It uses React hooks for state management and side effects, and integrates with a service to fetch existing bot data if in edit mode.
+// It also includes a rocket animation component for visual effect upon InstaBot Creation/Updation.
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import InstaBotCustomForm from "../../../components/InstaBot/InstaBotCustomForm";
@@ -151,7 +156,7 @@ import { ROUTES } from "../../../config/routes";
 
 import styles from "./DMMessageScreen.module.css"; // Adjust the import path as needed
 
-import RocketAnimation from "../../../components/RocketAnimation/RocketAnimation";
+// import RocketAnimation from "../../../components/RocketAnimation/RocketAnimation";
 
 
 const CreateEditInstaBot = () => {
@@ -160,7 +165,7 @@ const CreateEditInstaBot = () => {
   const instabotId = id || null;
   const [currentInstaBot, setCurrentInstaBot] = useState(null);
 
-  const [isAnimating, setIsAnimating] = useState(true);
+  // const [isAnimating, setIsAnimating] = useState(true);
   const [formData, setFormData] = useState({
     keyword: "",
     message_type: "",
@@ -201,7 +206,7 @@ const CreateEditInstaBot = () => {
       setFormData({
         keyword: data.keyword?.text || "",
         message_type: data.message_type,
-        image: null,
+        image: data.image_url || null,
         title: data.title,
         message: data.message,
         ai_post_description: data.ai_post_description,
@@ -244,7 +249,7 @@ const CreateEditInstaBot = () => {
 
 
 
-    setIsAnimating(true);
+    // setIsAnimating(true);
 
 
   }, [isEditMode, instabotId, fetchBotData]); //  Clean and complete
@@ -333,7 +338,7 @@ const CreateEditInstaBot = () => {
       </Row>
 
       {/* Rocket Animation */}
-      <RocketAnimation isAnimating={isAnimating} />
+      {/* <RocketAnimation isAnimating={false} /> */}
 
       <Row>
         <Col md={6}>

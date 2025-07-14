@@ -1,3 +1,4 @@
+// src/services/instabotService.js
 import axiosInstance from "./axiosInstance";
 import { API_ROUTES } from "../config/apiRoutes";
 
@@ -130,6 +131,16 @@ export const updatePublicReplyTemplate = async (id, data) => {
   );
   return response.data;
 };
+
+
+// export const generateAiPostCopy = async (payload) => {
+//   const response = await axiosInstance.post(
+//     `${API_ROUTES.BASE_URL}/instabots/generate-post/`,
+//     payload
+//   );
+//   return response.data;
+// };
+
 
 
 // export const createInstaBot = async (data) => {

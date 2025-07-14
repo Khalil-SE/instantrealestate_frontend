@@ -467,14 +467,16 @@ import React, { useRef, useState, useEffect } from "react";
 import { Row, Col, Card, Form, Button, Spinner } from "react-bootstrap";
 import { Overlay, Tooltip } from "react-bootstrap";
 import styles from "./UserProfile.module.css";
+import { toast } from "react-toastify";
 
+import CustomTextInput from "../../components/Form/CustomTextInput";
 // import { COMPANY_SIZES } from "../../config/values";
 import useAuth from "../../store/useAuth";
 import { updateUserMe } from "../../services/userService";
+import { uploadToBunnyCDN, deleteFromBunnyCDN, extractBunnyCDNPath } from "../../services/bunnyCdnService";
 import ProfilePicture from "../../components/profile/ProfilePicture";
 
 import ConnectLoftyButton from "../../components/LoftyRelatedComponents/ConnectLoftyButton";
-
 
 const UserProfile = () => {
   const user = useAuth((state) => state.user);
@@ -507,6 +509,7 @@ const UserProfile = () => {
         last_name: user.last_name || "",
         email: user.email || "",
         phone_number: user.phone_number || "",
+        picture: user.picture || null,
         sizeOfCompany: user.sizeOfCompany || "",
         chatBot_key: user.chatBot_key || "",
         chatBot_user_id: user.chatBot_user_id || "",
@@ -521,11 +524,50 @@ const UserProfile = () => {
     setErrors((prev) => ({ ...prev, [name]: null }));
   };
 
+  const handleImageChange = (image) => {
+    setFormData((prev) => ({ ...prev, picture: image }));
+    setErrors((prev) => ({ ...prev, picture: null }));
+  };
+
   const handleEditToggle = async () => {
     if (isEditing) {
       setIsSaving(true);
+      let updatedImageUrl = null;
+      if (formData.picture && typeof formData.picture === "object") {
+        // If picture is an object, it means it's a file
+        // if (typeof formData.picture !== "string") {
+        if (user?.picture) {
+          const publicUrl = user.picture; //"https://ire-dashboard.b-cdn.net/users/user-48.png";
+          const { folder, fileName } = extractBunnyCDNPath(publicUrl);
+
+          if (folder && fileName) {
+            await deleteFromBunnyCDN(fileName, folder);
+          }
+        }
+
+        try {
+          const extension = formData.picture.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+          updatedImageUrl = await uploadToBunnyCDN(
+            formData.picture,
+            `user-${user.id}-${Date.now()}.${extension}`,
+            "users"
+          );
+        } catch (err) {
+          console.error("Image upload failed", err);
+          toast.error("user image upload failed");
+        }
+        // }
+      }
+
       try {
-        await updateUserMe(formData);
+        await updateUserMe(
+          updatedImageUrl
+            ? { ...formData, picture: updatedImageUrl }
+            : formData
+        );
         setIsEditing(false);
         setErrors({});
       } catch (error) {
@@ -540,7 +582,6 @@ const UserProfile = () => {
 
   return (
     <Card className="shadow-sm bg-white border-0 rounded-4 mb-4 ">
-
       {isSaving && (
         <div
           className="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
@@ -551,29 +592,18 @@ const UserProfile = () => {
       )}
       <Card.Body className="p-4">
         <div className="d-flex justify-content-left flex-wrap gap-3">
-          <div className="d-flex align-items-end">
-            {/* <div className="flex-shrink-0 position-relative">
-              <img
-                src= {user?.picture || "/images/user-68.jpg"}
-                className="rounded-circle border border-2 wh-160"
-                alt="user"
-                width={160}
-                height={160}
-              />
-              <div className="position-absolute bottom-0 end-0">
-                  <div className="product-upload">
-                    <label htmlFor="file-upload" className="file-upload mb-0">
-                      <i className="ri-image-add-line bg-primary bg-opacity-10 p-2 rounded-1 text-primary"></i>
-                      
-                    </label>
-                    <input id="file-upload" type="file" />
-                  </div>
-                </div>
-            </div> */}
-            <ProfilePicture picture={user?.picture} />
-          </div>
+          {/* <div className="d-flex align-items-end"> */}
 
-          <div className="d-flex align-items-end">
+          <ProfilePicture
+            image={formData.picture}
+            setImage={handleImageChange}
+            disabled={!isEditing}
+            isLoading={isSaving}
+          />
+
+          {/* </div> */}
+
+          {/* <div className="d-flex align-items-end">
             <Button
               onClick={handleEditToggle}
               className={`btn ${
@@ -583,12 +613,68 @@ const UserProfile = () => {
               <i className="ri-edit-line fw-medium fs-18 me-1"></i>
               {isEditing ? "Save" : "Edit"}
             </Button>
-          </div>
+          </div> */}
         </div>
 
-        <h4 className="fs-18 mb-4 mt-4">Personal Information</h4>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h4 className="fs-18 mb-4 mt-4">Personal Information</h4>
+          <Button
+            onClick={handleEditToggle}
+            className={`btn ${
+              isEditing ? "btn-info" : "btn-primary"
+            } py-2 px-4 fw-medium fs-16`}
+          >
+            <i className="ri-edit-line fw-medium fs-18 me-1"></i>
+            {isEditing ? "Save" : "Edit"}
+          </Button>
+        </div>
 
         <Form>
+          <Row>
+            <Col lg={6}>
+              <CustomTextInput
+                label="First Name"
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleChange}
+                error={errors.first_name}
+                disabled={!isEditing}
+              />
+            </Col>
+            <Col lg={6}>
+              <CustomTextInput
+                label="Last Name"
+                name="last_name"
+                value={formData.last_name}
+                onChange={handleChange}
+                error={errors.last_name}
+                disabled={!isEditing}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={6}>
+              <CustomTextInput
+                label="Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                error={errors.email}
+                disabled={!isEditing}
+              />
+            </Col>
+            <Col lg={6}>
+              <CustomTextInput
+                label="phone"
+                name="phone_number"
+                value={formData.phone_number}
+                onChange={handleChange}
+                error={errors.phone_number}
+                disabled={!isEditing}
+              />
+            </Col>
+          </Row>
+
           <Row>
             <Col lg={6}>
               <Form.Group className="mb-4">
@@ -731,30 +817,38 @@ const UserProfile = () => {
                 <label className="label text-secondary">
                   ChatBot API Key
                   <div
-    ref={targetRef}
-    style={{ position: "relative", display: "inline-block" }}
-    onMouseEnter={() => setShow(true)}
-    onMouseLeave={() => setShow(false)}
-  >
-    <i className="ri-information-line text-primary fs-5" style={{ cursor: "pointer" }}></i>
+                    ref={targetRef}
+                    style={{ position: "relative", display: "inline-block" }}
+                    onMouseEnter={() => setShow(true)}
+                    onMouseLeave={() => setShow(false)}
+                  >
+                    <i
+                      className="ri-information-line text-primary fs-5"
+                      style={{ cursor: "pointer" }}
+                    ></i>
 
-    <Overlay target={targetRef.current} show={show} placement="right">
-      {(props) => (
-        <Tooltip {...props} className={styles.tooltipBox}>
-          This is your personal chatbot key. <br />
-          You can manage it from the{" "}
-          <a
-            href="https://youtube.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()} // optional
-          >
-            chatbot dashboard
-          </a>.
-        </Tooltip>
-      )}
-    </Overlay>
-  </div>
+                    <Overlay
+                      target={targetRef.current}
+                      show={show}
+                      placement="right"
+                    >
+                      {(props) => (
+                        <Tooltip {...props} className={styles.tooltipBox}>
+                          This is your personal chatbot key. <br />
+                          You can manage it from the{" "}
+                          <a
+                            href="https://youtube.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()} // optional
+                          >
+                            chatbot dashboard
+                          </a>
+                          .
+                        </Tooltip>
+                      )}
+                    </Overlay>
+                  </div>
                 </label>
                 <Form.Group className="position-relative">
                   <Form.Control

@@ -115,6 +115,23 @@ const UserLeftSidebar = ({ toggleActive }) => {
                     </Link>
                   </li>
 
+                      <li className="menu-item">
+                    <Link
+                      to={ROUTES.USER.SETTINGS.INTEGRATION.Chat_Bot}
+                      className={`menu-link ${
+                        pathname === ROUTES.USER.SETTINGS.INTEGRATION.Chat_Bot ? "active" : ""
+                      }`}
+                    >
+                      <i className="material-symbols-outlined">
+                        chat_bubble
+                      </i>
+                      <span className="title">Integrations</span>
+                    </Link>
+                  </li>
+
+
+
+
                   <li className="menu-item">
                     <Link
                       to={ROUTES.USER.SUBSCRIPTION}
@@ -126,6 +143,21 @@ const UserLeftSidebar = ({ toggleActive }) => {
                         credit_card_heart
                       </i>
                       <span className="title">Subscription</span>
+                    </Link>
+                  </li>
+
+
+                  <li className="menu-item">
+                    <Link
+                      to={ROUTES.USER.SETTINGS.CONTACT_US}
+                      className={`menu-link ${
+                        pathname === ROUTES.USER.SETTINGS.CONTACT_US ? "active" : ""
+                      }`}
+                    >
+                      <i className="material-symbols-outlined">
+                        contact_mail
+                      </i>
+                      <span className="title">Contact Us</span>
                     </Link>
                   </li>
 

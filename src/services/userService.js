@@ -171,28 +171,28 @@ export const updateUserMe = async (formData) => {
   }
 };
 
-export const uploadUserPicture = async (formData) => {
-  const user = useAuth.getState().user;
-  const setUser = useAuth.getState().setUser;
+// export const uploadUserPicture = async (formData) => {
+//   const user = useAuth.getState().user;
+//   const setUser = useAuth.getState().setUser;
 
-  try {
-    const response = await axiosInstance.post(
-      API_ROUTES.COMMON_USER_ADMIN.UPLOAD_PICTURE,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+//   try {
+//     const response = await axiosInstance.post(
+//       API_ROUTES.COMMON_USER_ADMIN.UPLOAD_PICTURE,
+//       formData,
+//       {
+//         headers: {
+//           "Content-Type": "multipart/form-data",
+//         },
+//       }
+//     );
 
-    if (response.data) {
-      setUser({ ...user, picture: response.data.picture_url }, true);
-    }
-  } catch (error) {
-    throw error.response?.data || { detail: "Unknown error" };
-  }
-};
+//     if (response.data) {
+//       setUser({ ...user, picture: response.data.picture_url }, true);
+//     }
+//   } catch (error) {
+//     throw error.response?.data || { detail: "Unknown error" };
+//   }
+// };
 
 export const getAllUsers = async ({ page = 1, search = "" }) => {
   try {

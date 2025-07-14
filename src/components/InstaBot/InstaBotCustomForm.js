@@ -1,6 +1,7 @@
+// src/components/InstaBot/InstaBotCustomForm.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Col, Container } from "react-bootstrap";
+import { Form, Col, Container, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 // import CustomLabel from "../Form/CustomLabel";
@@ -22,10 +23,15 @@ import {
   updatePublicReplyTemplate,
   createPublicReplyTemplate,
 } from "../../services/instabotService";
-import { uploadInstaBotImageToBunny } from "../../services/bunnyCdnService";
+import {
+  uploadToBunnyCDN,
+  deleteFromBunnyCDN,
+  extractBunnyCDNPath,
+} from "../../services/bunnyCdnService";
 import { ROUTES } from "../../config/routes";
 import CustomLabel from "../Form/CustomLabel";
 import AnimatedSubmitButton from "../Form/AnimatedSubmitButton";
+import RocketAnimation from "../RocketAnimation/RocketAnimation";
 
 // import styles from "../Layout/DesigningBG/BgGradiants.module.css"
 
@@ -44,6 +50,7 @@ const InstaBotCustomForm = ({
   const navigate = useNavigate();
 
   const [isSaveLoading, setIsSaveLoading] = useState(false);
+  const [triggerRocket, setTriggerRocket] = useState(false);
 
   const [formErrors, setFormErrors] = useState({});
   const [buttonErrors, setButtonErrors] = useState({});
@@ -51,6 +58,7 @@ const InstaBotCustomForm = ({
   const [templates, setTemplates] = useState([]);
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [editTemplate, setEditTemplate] = useState(null);
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const isEditMode = Boolean(instabotId);
@@ -107,8 +115,76 @@ const InstaBotCustomForm = ({
     // }
   };
 
+  // const handleSubmit = async (e) => {
+
+  //   // console.log(formData.image);
+
+  //   e.preventDefault();
+  //   const payload = {
+  //     status: formData.status,
+  //     message_type: formData.message_type,
+  //     title: formData.title,
+  //     message: formData.message,
+  //     ai_post_description: formData.ai_post_description,
+  //     keyword: { text: formData.keyword.trim() },
+  //     public_reply_template_id: formData.public_reply_template_id || null,
+  //     button1_text: buttons[0]?.text || "",
+  //     button1_url: buttons[0]?.url || "",
+  //     button2_text: buttons[1]?.text || "",
+  //     button2_url: buttons[1]?.url || "",
+  //     button3_text: buttons[2]?.text || "",
+  //     button3_url: buttons[2]?.url || "",
+  //     email_recipients: emails,
+  //   };
+
+  //   try {
+  //     setIsSaveLoading(true);
+  //     setFormErrors({});
+  //     const bot = isEditMode
+  //       ? await updateInstaBot(instabotId, payload)
+  //       : await createInstaBot(payload);
+
+  //     if (formData.image && formData.message_type === "image") {
+  //       const extension = formData.image.name.split(".").pop().toLowerCase();
+  //       const imageUrl = await uploadToBunnyCDN(
+  //         formData.image,
+  //         "instabot-" + bot.id + "." + extension,
+  //         "instabots"
+  //       );
+  //       await updateInstaBot(bot.id, { image_url: imageUrl });
+  //     }
+  //     toast.success(
+  //       `InstaBot ${isEditMode ? "updated" : "created"} successfully!`
+  //     );
+
+  //     setIsSaveLoading(false);
+
+  //     // navigate(ROUTES.USER.INSTABOT.INSTABOTS);
+  //     setTriggerRocket(true); // Trigger animation
+  //     setTimeout(() => {
+  //       navigate(ROUTES.USER.INSTABOT.INSTABOTS);
+  //     }, 3000); // Delay navigation until after animation
+
+  //     // alert(`InstaBot ${isEditMode ? "updated" : "created"} successfully!`);
+  //   } catch (err) {
+  //     setIsSaveLoading(false);
+
+  //     if (err.response?.data) {
+  //       setFormErrors(err.response.data);
+
+  //       // Optional: extract and store button-specific errors separately
+  //       const buttonFieldErrors = mapButtonErrors(err.response.data);
+  //       setButtonErrors(buttonFieldErrors);
+  //     } else {
+  //       console.error("Save failed", err);
+  //       // alert("Unexpected error occurred.");
+  //       toast.error("Unexpected error occurred.");
+  //     }
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const payload = {
       status: formData.status,
       message_type: formData.message_type,
@@ -126,31 +202,19 @@ const InstaBotCustomForm = ({
       email_recipients: emails,
     };
 
+    setIsSaveLoading(true);
+    setFormErrors({});
+
+    let bot = null;
+
+    // Step 1: Create or update InstaBot
     try {
-      setIsSaveLoading(true);
-      setFormErrors({});
-      const bot = isEditMode
+      bot = isEditMode
         ? await updateInstaBot(instabotId, payload)
         : await createInstaBot(payload);
 
-      if (formData.image && formData.message_type === "image") {
-        const imageUrl = await uploadInstaBotImageToBunny(
-          formData.image,
-          bot.id
-        );
-        await updateInstaBot(bot.id, { image_url: imageUrl });
-      }
-      toast.success(
-        `InstaBot ${isEditMode ? "updated" : "created"} successfully!`
-      );
-
-      setIsSaveLoading(false);
-
-      navigate(ROUTES.USER.INSTABOT.INSTABOTS);
-
-      // alert(`InstaBot ${isEditMode ? "updated" : "created"} successfully!`);
+      // toast.success(`InstaBot ${isEditMode ? "updated" : "created"} successfully!`);
     } catch (err) {
-
       setIsSaveLoading(false);
 
       if (err.response?.data) {
@@ -161,10 +225,49 @@ const InstaBotCustomForm = ({
         setButtonErrors(buttonFieldErrors);
       } else {
         console.error("Save failed", err);
-        // alert("Unexpected error occurred.");
         toast.error("Unexpected error occurred.");
       }
+      return; // Stop further execution if bot creation failed
     }
+
+    // Step 2: Upload image if needed
+    if (formData.image && formData.message_type === "image" && bot?.id) {
+      if (typeof formData.image !== "string") {
+        if (instaBotObj?.image_url) {
+          const publicUrl = instaBotObj.image_url; //"https://ire-dashboard.b-cdn.net/instabots/instabot-48.png";
+          const { folder, fileName } = extractBunnyCDNPath(publicUrl);
+
+          if (folder && fileName) {
+            await deleteFromBunnyCDN(fileName, folder);
+          }
+        }
+
+        try {
+          const extension = formData.image.name.split(".").pop().toLowerCase();
+          const imageUrl = await uploadToBunnyCDN(
+            formData.image,
+            `instabot-${bot.id}-${Date.now()}.${extension}`,
+            "instabots"
+          );
+          await updateInstaBot(bot.id, { image_url: imageUrl });
+        } catch (err) {
+          console.error("Image upload failed", err);
+          toast.error("InstaBot created but image upload failed.");
+        }
+      }
+    }
+
+    toast.success(
+      `InstaBot ${isEditMode ? "updated" : "created"} successfully!`
+    );
+
+    // Final UI updates
+    setIsSaveLoading(false);
+    setTriggerRocket(true); // Trigger animation
+
+    setTimeout(() => {
+      navigate(ROUTES.USER.INSTABOT.INSTABOTS);
+    }, 3000);
   };
 
   const mapButtonErrors = (errors) => {
@@ -189,6 +292,31 @@ const InstaBotCustomForm = ({
     return mapped;
   };
 
+  // const handleGenerateAIPost = async () => {
+  //   try {
+  //     setGeneratingPost(true);
+
+  //     const response = await generateAiPostCopy({
+  //       // title: formData.title,
+  //       ai_post_description: formData.ai_post_description,
+  //       keyword: formData.keyword,
+  //       buttons,
+  //     });
+
+  //     setFormData((prev) => ({
+  //       ...prev,
+  //       ai_post_description: response.post_copy || "",
+  //     }));
+
+  //     toast.success("AI post generated!");
+  //   } catch (err) {
+  //     console.error("AI generation failed", err);
+  //     toast.error("Failed to generate post. Try again.");
+  //   } finally {
+  //     setGeneratingPost(false);
+  //   }
+  // };
+
   return (
     <Container
       // className={styles.premium_light_gradient}
@@ -196,6 +324,8 @@ const InstaBotCustomForm = ({
       style={{ overflow: "visible" }}
       // style={{ maxHeight: "80vh", overflowY: "auto" }}
     >
+      {triggerRocket && <RocketAnimation isAnimating={true} />}
+
       <Form onSubmit={handleSubmit}>
         <Col lg={12}>
           <Form.Group className="mb-4">
@@ -324,54 +454,116 @@ const InstaBotCustomForm = ({
           onChange={(v) => handleChange("message", v)}
         /> */}
 
-        <ButtonsInputGroup buttons={buttons} setButtons={setButtons} errors={buttonErrors}/>
+        <ButtonsInputGroup
+          buttons={buttons}
+          setButtons={setButtons}
+          errors={buttonErrors}
+        />
 
-          <ContentBlockCard >
-            <CustomLabel text="Public Reply" />
-        <PublicReplySelector
-          templates={templates}
-          selectedTemplateId={formData.public_reply_template_id}
-          onChange={(val) => handleChange("public_reply_template_id", val)}
-          onView={() => {
-            setEditTemplate(null);
-            setShowReplyModal(true);
-          }}
-          onEdit={() => {
-            const selected = templates.find(
-              (t) => t.id === parseInt(formData.public_reply_template_id)
-            );
-            if (selected) {
-              setEditTemplate(selected);
+        <ContentBlockCard>
+          <CustomLabel text="Public Reply" />
+          <PublicReplySelector
+            templates={templates}
+            selectedTemplateId={formData.public_reply_template_id}
+            onChange={(val) => handleChange("public_reply_template_id", val)}
+            onView={() => {
+              setEditTemplate(null);
               setShowReplyModal(true);
-            }
-          }}
-          onDelete={() => setShowDeleteModal(true)}
-        />
+            }}
+            onEdit={() => {
+              const selected = templates.find(
+                (t) => t.id === parseInt(formData.public_reply_template_id)
+              );
+              if (selected) {
+                setEditTemplate(selected);
+                setShowReplyModal(true);
+              }
+            }}
+            onDelete={() => setShowDeleteModal(true)}
+          />
+
+          {formData.public_reply_template_id && (
+            <Card
+              style={{
+                background: "linear-gradient(to right, #eff6ff, #f5f3ff)", // from-blue-50 to to-purple-50
+                border: "1px solid rgba(233, 213, 255, 0.5)", // border-purple-100/50
+                borderRadius: "1rem", // rounded-xl
+                padding: "1rem", // p-4
+              }}
+            >
+              <div className="mt-3">
+                <h6 className="text-muted fw-semibold mb-2">
+                  Replies in Selected Template:
+                </h6>
+                {/* <ul className="list-group list-group-flush"> */}
+                {templates
+                  .find(
+                    (t) => t.id === parseInt(formData.public_reply_template_id)
+                  )
+                  ?.replies?.map((reply, idx) => (
+                    <Form.Control
+                      key={reply.id || idx}
+                      type="text"
+                      value={reply.text}
+                      disabled={true}
+                      className={`h-55 rounded-3 border-3 ps-3 pe-5 text-dark mb-2`}
+                      style={{
+                        backgroundColor: "rgba(255,255,255,0.6)",
+                        backdropFilter: "blur(4px)",
+                        transition: "background-color 0.2s",
+                      }}
+                    />
+
+                    // <li key={reply.id || idx} className="list-group-item py-2 px-3">
+                    //   <span className="text-muted">{reply.text}</span>
+                    // </li>
+                  ))}
+                {/* </ul> */}
+              </div>
+            </Card>
+          )}
         </ContentBlockCard>
 
-<ContentBlockCard>
-        <EmojiTextInput
-          label="AI Post Description"
-          labelFontClass={"fs-4"}
-          type="textarea"
-          value={formData.ai_post_description}
-          onChange={(v) => handleChange("ai_post_description", v)}
-        />
+        <ContentBlockCard>
+          <CustomLabel text="AI Post Description" />
+          {/* <div className="d-flex justify-content-between align-items-center mb-3">
+            <CustomLabel text="AI Post Description" />
+            <Button
+              variant="secondary"
+              onClick={handleGenerateAIPost}
+              className="d-flex align-items-center gap-1 px-3 py-1 rounded-3"
+              disabled={generatingPost}
+            >
+              <i className="ri-ai-generate fs-5"></i> {" "}
+              {generatingPost ? "Generating..." : "Generate"}
+            </Button>
+          </div> */}
+
+          <EmojiTextInput
+            // label="AI Post Description
+            placeholder="Enter information about what you're providing (e.g., list of homes in Scottsdale)"
+            labelFontClass={"fs-4"}
+            type="textarea"
+            value={formData.ai_post_description}
+            error={formErrors?.ai_post_description}
+            onChange={(v) => handleChange("ai_post_description", v)}
+          />
         </ContentBlockCard>
 
-<ContentBlockCard>
-  <CustomLabel text="Email Recipients" />
-        <EmailInputList
-          emails={emails}
-          setEmails={setEmails}
-          emailInput={emailInput}
-          setEmailInput={setEmailInput}
-        />
+        <ContentBlockCard>
+          <CustomLabel text="Email Recipients" />
+          <EmailInputList
+            emails={emails}
+            setEmails={setEmails}
+            emailInput={emailInput}
+            setEmailInput={setEmailInput}
+          />
+
+          
         </ContentBlockCard>
 
         <Col lg={12}>
-        <AnimatedSubmitButton isAnimating={isSaveLoading}/>
-        
+          <AnimatedSubmitButton isAnimating={isSaveLoading} />
         </Col>
 
         <Col lg={12} className="d-flex">

@@ -36,40 +36,53 @@ import axiosInstance from './axiosInstance'; // For authenticated requests
 import { API_ROUTES } from '../config/apiRoutes';
 
 
-export const signupUser = async (data) => {
+export const checkEmailExists = async (email) => {
   try {
-    const response = await axios.post(API_ROUTES.BASE_URL + API_ROUTES.AUTH.SIGNUP, data);
-    return response;
+    const res = await axios.post(API_ROUTES.BASE_URL + API_ROUTES.AUTH.CHECK_EMAIL_AVAILABLE, { email });
+    // console.log("Check email response:", res.data);
+    
+    return res.data.exists;  // returns true or false
   } catch (error) {
-    console.error("Signup error:", error);
-    throw error.response?.data || { detail: "Signup failed. Please try again." };
+    console.error("Check email error", error);
+    throw error.response?.data || { detail: "Failed to check email" };
   }
 };
 
-export const verifyEmail = async (email, code) => {
-  try {
-    const response = await axios.post(API_ROUTES.BASE_URL + API_ROUTES.AUTH.VERIFY_EMAIL, {
-      email,
-      code,
-    });
-    return response;
-  } catch (error) {
-    console.error("Email verification error:", error);
-    throw error.response?.data || { detail: "Verification failed. Please try again." };
-  }
-};
 
-export const resendVerificationCode = async (email) => {
-  try {
-    const response = await axios.post(API_ROUTES.BASE_URL + API_ROUTES.AUTH.RESEND_VERIFICATION, {
-      email,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Resend verification code error:", error);
-    throw error.response?.data || { detail: "Failed to resend code. Please try again." };
-  }
-};
+// export const signupUser = async (data) => {
+//   try {
+//     const response = await axios.post(API_ROUTES.BASE_URL + API_ROUTES.AUTH.SIGNUP, data);
+//     return response;
+//   } catch (error) {
+//     console.error("Signup error:", error);
+//     throw error.response?.data || { detail: "Signup failed. Please try again." };
+//   }
+// };
+
+// export const verifyEmail = async (email, code) => {
+//   try {
+//     const response = await axios.post(API_ROUTES.BASE_URL + API_ROUTES.AUTH.VERIFY_EMAIL, {
+//       email,
+//       code,
+//     });
+//     return response;
+//   } catch (error) {
+//     console.error("Email verification error:", error);
+//     throw error.response?.data || { detail: "Verification failed. Please try again." };
+//   }
+// };
+
+// export const resendVerificationCode = async (email) => {
+//   try {
+//     const response = await axios.post(API_ROUTES.BASE_URL + API_ROUTES.AUTH.RESEND_VERIFICATION, {
+//       email,
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.error("Resend verification code error:", error);
+//     throw error.response?.data || { detail: "Failed to resend code. Please try again." };
+//   }
+// };
 
 export const requestPasswordReset = async (email) => {
   try {
@@ -142,3 +155,19 @@ export const socialLoginGoogle = async (id_token) => {
 };
 
 export const socialLoginFacebook = async (accessToken) => {}
+
+
+
+
+
+// new flow
+
+export const createPaymentIntent = async ({ email, plan_id }) => {
+  const res = await axios.post(`${API_ROUTES.BASE_URL}subscriptions/start-subscription/`, { email, plan_id });
+  return res.data;
+};
+
+export const confirmSignup = async (data) => {
+  const res = await axios.post(`${API_ROUTES.BASE_URL}subscriptions/confirm-signup/`, data);
+  return res.data;
+};

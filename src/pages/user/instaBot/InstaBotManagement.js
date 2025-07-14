@@ -1,3 +1,8 @@
+// src/pages/user/instaBot/InstaBotManagement.js
+// Description: This file contains the InstaBotManagement component which allows users to manage their Instagram bots
+// including creating, editing, deleting, and toggling the status of bots.
+// It uses React, React Bootstrap, and custom services for API calls.
+// The component also includes a search functionality and pagination for better user experience.
 import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Table, Form, Spinner } from "react-bootstrap";

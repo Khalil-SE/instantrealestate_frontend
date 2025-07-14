@@ -1,3 +1,4 @@
+// src/components/InstaBot/KeywordInput.js
 import React, { useState, useEffect } from "react";
 import { Form, Spinner } from "react-bootstrap";
 import { checkKeywordAvailability } from "../../services/instabotService";

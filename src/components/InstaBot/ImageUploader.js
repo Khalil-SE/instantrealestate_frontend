@@ -1,3 +1,4 @@
+// src/components/InstaBot/ImageUploader.js
 import React, { useRef, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 

@@ -1,3 +1,4 @@
+// src/components/InstaBot/EmojiTextInput.js
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Picker from "@emoji-mart/react";
@@ -178,7 +179,7 @@ const EmojiTextInput = ({
           className="position-absolute text-muted small pe-3"
           style={{
             fontSize: "0.75rem",
-            bottom: type === "textarea" ? "0" : "-1.25rem",
+            bottom: type === "textarea" ? "-1.25rem" : "-1.25rem",
             right: 0,
           }}
         >

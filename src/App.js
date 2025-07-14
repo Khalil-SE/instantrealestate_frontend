@@ -34,6 +34,10 @@ import {
   PrivacyPolicy,
   TermsConditions,
 } from "./pages/user";
+import { ContactUs } from "./pages/user/settings";
+
+import ChatBotIntegration from "./pages/user/integration/ChatBotIntegration";
+
 
 // import  CreateInstaBot  from "./pages/user/instaBot/CreateEditInstaBot";
 import { CreateEditInstaBot, InstaBotManagement } from "./pages/user/instaBot";
@@ -145,9 +149,19 @@ const App = () => {
               path={ROUTES.USER.SUBSCRIPTION}
               element={<SubscriptionPage />}
             />
+            {/* <Route
+                path={ROUTES.USER.INSTABOT.INSTABOTS}
+                element={<InstaBotManagement />}
+                />
+                
+                */}
 
             <Route element={<RequireSubscription />}>
               <Route path={ROUTES.USER.PROFILE} element={<UserProfile />} />
+              <Route
+                path={ROUTES.USER.SETTINGS.INTEGRATION.Chat_Bot}
+                element={<ChatBotIntegration />}
+              />
               <Route
                 path={ROUTES.USER.INSTABOT.INSTABOTS}
                 element={<InstaBotManagement />}
@@ -156,7 +170,8 @@ const App = () => {
                 <Route
                 path={ROUTES.USER.INSTABOT.CREATE_INSTABOT}
                 element={<CreateEditInstaBot />}
-                />
+                /> 
+                
                 <Route
                 path={ROUTES.USER.INSTABOT.EDIT_INSTABOT}
                 element={<CreateEditInstaBot />}
@@ -165,6 +180,12 @@ const App = () => {
                 <Route
                 path={ROUTES.USER.PROPERTY.PROPERTIES}
                 element={<PropertyManagement />}
+                />
+
+
+                <Route 
+                path={ROUTES.USER.SETTINGS.CONTACT_US}
+                element={<ContactUs />}
                 />
 
               <Route

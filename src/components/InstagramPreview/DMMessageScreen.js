@@ -1,3 +1,4 @@
+// src/components/InstagramPreview/DMMessageScreen.js
 import React from 'react';
 import {
   Container,
@@ -19,7 +20,7 @@ const DMMessageScreen = ({ formData = {}, buttons = [] }) => {
   } = formData;
 
   return (
-    <IPhoneMockup screenWidth={300}>
+    <IPhoneMockup screenWidth={300} frameColor= "rgb(66, 66, 66)">
       <Container fluid className="d-flex flex-column p-0">
         {/* Chat Area */}
         <div className="flex-grow-1 overflow-auto p-3 bg-white">

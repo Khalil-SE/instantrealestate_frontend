@@ -3,6 +3,7 @@
 export const API_ROUTES = {
   BASE_URL : process.env.REACT_APP_BACKEND_URL,
   AUTH: {
+    CHECK_EMAIL_AVAILABLE: 'users/check-email/',
     LOGIN: 'users/login/',
     SIGNUP: 'users/signup/',
     LOGOUT: 'users/logout/',
@@ -34,6 +35,9 @@ export const API_ROUTES = {
       PLANS: 'subscriptions/plans/',
       HISTORY: 'subscriptions/history/',
       CANCEL: 'subscriptions/cancel/',
+      RESUME: 'subscriptions/resume/',
+      START: 'subscriptions/start/',
+      SCHEDULE_PLAN_CHANGE: 'subscriptions/schedule-plan-change/',
       SESSION_CHECKOUT: 'subscriptions/create-checkout-session/',
       OPEN_BILLING_PORTAL: 'subscriptions/open-billing-portal/',
     },

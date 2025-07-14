@@ -25,6 +25,13 @@ export const ROUTES = {
         // DASHBOARD_INDEX: '/user/dashboard',
         PROFILE: '/user/profile',
         SUBSCRIPTION: '/user/subscription',
+        SETTINGS: {
+          CONTACT_US: '/user/contact-us',
+          INTEGRATION: {
+            Chat_Bot: '/user/integration/chat-bot',
+            LOFTY : '/user/integration/lofty',
+          },
+        },
         INSTABOT: {
           INSTABOTS: '/user/instabot',
           CREATE_INSTABOT: '/user/instabot/create',

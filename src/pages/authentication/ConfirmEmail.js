@@ -1,87 +1,87 @@
 
 
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Card, Form, Col, Row, Spinner } from "react-bootstrap";
-import {
-  verifyEmail,
-  resendVerificationCode,
-} from "../../services/authService";
-import { ROUTES } from "../../config/routes";
+// import React, { useState } from "react";
+// import { useLocation, useNavigate } from "react-router-dom";
+// import { Card, Form, Col, Row, Spinner } from "react-bootstrap";
+// import {
+//   verifyEmail,
+//   resendVerificationCode,
+// } from "../../services/authService";
+// import { ROUTES } from "../../config/routes";
 
 const ConfirmEmail = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  // const location = useLocation();
+  // const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    email: location.state?.email || "",
-    verificationCode: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   email: location.state?.email || "",
+  //   verificationCode: "",
+  // });
 
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [resendLoading, setResendLoading] = useState(false);
-  const [serverError, setServerError] = useState("");
+  // const [errors, setErrors] = useState({});
+  // const [loading, setLoading] = useState(false);
+  // const [resendLoading, setResendLoading] = useState(false);
+  // const [serverError, setServerError] = useState("");
 
-  const [isVerified, setIsVerified] = useState(false);
+  // const [isVerified, setIsVerified] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({ ...prev, [name]: value }));
+  // };
 
-  const validate = () => {
-    const newErrors = {};
-    if (!formData.email) newErrors.email = "Email is required";
-    if (!formData.verificationCode)
-      newErrors.verificationCode = "Verification code is required";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  // const validate = () => {
+  //   const newErrors = {};
+  //   if (!formData.email) newErrors.email = "Email is required";
+  //   if (!formData.verificationCode)
+  //     newErrors.verificationCode = "Verification code is required";
+  //   setErrors(newErrors);
+  //   return Object.keys(newErrors).length === 0;
+  // };
 
-  const handleSubmit = async () => {
-    if (!validate()) return;
-    setLoading(true);
-    setServerError("");
-    try {
-      const response = await verifyEmail(
-        formData.email,
-        formData.verificationCode
-      );
-      if (response.status === 200) {
-        setIsVerified(true);
-        setTimeout(() => {
-          navigate(ROUTES.AUTHENTICATION.SIGN_IN);
-        }, 3000); // navigate after 3 seconds
-      }
-    } catch (error) {
-      setServerError(error.detail || error.non_field_errors || "Verification failed.");
-      // console.log(error.non_field_errors);
+  // const handleSubmit = async () => {
+  //   if (!validate()) return;
+  //   setLoading(true);
+  //   setServerError("");
+  //   try {
+  //     const response = await verifyEmail(
+  //       formData.email,
+  //       formData.verificationCode
+  //     );
+  //     if (response.status === 200) {
+  //       setIsVerified(true);
+  //       setTimeout(() => {
+  //         navigate(ROUTES.AUTHENTICATION.SIGN_IN);
+  //       }, 3000); // navigate after 3 seconds
+  //     }
+  //   } catch (error) {
+  //     setServerError(error.detail || error.non_field_errors || "Verification failed.");
+  //     // console.log(error.non_field_errors);
       
-    } finally {
-      setLoading(false);
-    }
-  };
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  const handleResend = async () => {
-    if (!formData.email) {
-      setErrors({ email: "Email is required to resend verification." });
-      return;
-    }
-    setResendLoading(true);
-    try {
-      await resendVerificationCode(formData.email);
-      alert("Verification code resent successfully!");
-    } catch (error) {
-      alert(error.detail || "Failed to resend verification code.");
-    } finally {
-      setResendLoading(false);
-    }
-  };
+  // const handleResend = async () => {
+  //   if (!formData.email) {
+  //     setErrors({ email: "Email is required to resend verification." });
+  //     return;
+  //   }
+  //   setResendLoading(true);
+  //   try {
+  //     await resendVerificationCode(formData.email);
+  //     alert("Verification code resent successfully!");
+  //   } catch (error) {
+  //     alert(error.detail || "Failed to resend verification code.");
+  //   } finally {
+  //     setResendLoading(false);
+  //   }
+  // };
 
   return (
     <>
-      <div className="main-wrapper-content active">
+      {/* <div className="main-wrapper-content active">
         <div className="main-content d-flex flex-column">
           <div className="auth-main-content m-auto  m-1230 px-3">
             <Row style={{ width: "550px" }} className="mx-auto">
@@ -219,7 +219,7 @@ const ConfirmEmail = () => {
             </Row>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

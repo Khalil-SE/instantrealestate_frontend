@@ -1,4 +1,4 @@
-// components/ContentBlockCard.js
+// src/components/Form/ContentBlockCard.js
 import React from "react";
 import Card from "react-bootstrap/Card";
 // import CustomLabel from "./CustomLabel";
